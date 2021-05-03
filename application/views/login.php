@@ -143,7 +143,7 @@
                   <div class="form-header purple-gradient">
                     <h3><i class="fas fa-user mt-2 mb-2"></i> Đăng nhập</h3>
                   </div>
-
+                  <?=$this->session->flashdata('invalidAuthenInfo');?>
                   <!--Body-->
                   <div class="md-form">
                     <i class="fas fa-envelope prefix white-text"></i>

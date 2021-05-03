@@ -7,15 +7,16 @@ class Login extends CI_Controller
         parent::__construct();
         $this->load->library("session");
         $this->load->library("form_validation");
-        if (!$this->session->has_userdata('logged_in')) {
-            // echo "Chưa login";
+        $this->load->library("encryption");
+        $this->load->model("login_model");
+        if ($this->session->has_userdata('logged_in')) {
+            redirect("dashboard");
         }
     }
 
     public function index()
     {
         $this->load->view("login");
-        // var_dump($this->session->has_userdata("id"));
     }
 
     public function dologin()
@@ -47,12 +48,31 @@ class Login extends CI_Controller
             // Nếu không hợp lệ thì load lại login
             $this->load->view("login");
         } else {
-            $data = [
-                'email' => 'test@gmail.com',
-                'logged_in' => TRUE
+            // Hợp lệ thì tiến hành đăng nhập
+            $userdata = [
+                'email' => $this->input->post("email", TRUE),
+                'password' => $this->input->post("password", TRUE)
             ];
-            $this->session->set_userdata($data);
-            redirect("login");
+
+            // Kiểm tra user có tồn tại hay không
+            if ($this->login_model->isMemberExist($userdata)) {
+                // CÓ
+                if ($this->login_model->validateUser($userdata) === TRUE) {
+                    // Đăng nhập hợp lệ thì set session
+                    $session_data = [
+                        'email' => $userdata['email'],
+                        'logged_in' => TRUE
+                    ];
+                    $this->session->set_userdata($session_data);
+                    redirect("dashboard");
+                } else {
+                    // Sai thông tin đăng nhập
+                    $this->session->set_flashdata('invalidAuthenInfo', 'Sai thông tin đăng nhập');
+                    $this->load->view("login");
+                }
+            } else {
+                echo "không";
+            }
         }
     }
 }

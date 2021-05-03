@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2021 at 04:45 PM
+-- Generation Time: May 03, 2021 at 05:36 PM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- PHP Version: 7.3.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `fullname` varchar(100) NOT NULL,
   `role` int(1) NOT NULL,
   `created_at` datetime NOT NULL
@@ -41,8 +41,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `fullname`, `role`, `created_at`) VALUES
-(1, 'tong.congdanh@gmail.com', '39c115fc154a229994a535710326c65b37454a2892357229762eac1b8f343ab4621e95b91e3230063a64e5acdbb76f9e534f', 'Tống Công Danh', 1, '2021-05-03 04:34:28'),
-(2, 'skyqueenpro2022@gmail.com', 'e6acecc3c09a3b7a7685b7e4824a957088f29f6102198fa56dfe4e9c1373120a071f7ffd486e67ff6408b3d2ba96992cb897', 'Nguyễn Văn A', 1, '2021-05-03 04:44:59');
+(3, 'tong.congdanh@gmail.com', '46c15b98701216b284bc64e7b16d01abdaa4a847ecda894521cbc4cf59a6d73a488b295361823cbb003977064a3bdf037c16cd57f1fa5894c9412869f035a5b7rJm6fXbjBshFg7pkM3ZTf25CFiPt4bl8wB25QIv7rYM=', 'Tống Công Danh', 1, '2021-05-03 05:15:23');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +61,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
