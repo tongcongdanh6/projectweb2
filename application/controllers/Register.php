@@ -5,6 +5,7 @@ class Register extends CI_Controller {
         parent::__construct();
         $this->load->library("form_validation");
         $this->load->library("encryption");
+        $this->load->model("register_model");
     }
 
     public function index() {
@@ -48,13 +49,28 @@ class Register extends CI_Controller {
         }
         else {
              // Dữ liệu hợp lệ thì thêm vào hệ thống
-            $key = bin2hex($this->encryption->create_key(16));
-            $config['encryption_key'] = hex2bin($key);
-            
+             // Mã hóa password
+            $encrypted_password = $this->encryption->encrypt($this->input->post("password", TRUE));
+
             $data = [
-                $this->input->post("fullname", TRUE), // TRUE là XSS filter 
-                $this->input->post("email", TRUE)
+                'email' => $this->input->post("email", TRUE),
+                'password' => $encrypted_password,
+                'fullname' => $this->input->post("fullname", TRUE),
+                'role' => 1,
+                'created_at' => date("Y-m-d h:i:sa")
             ];
+
+            
+            if($this->register_model->addNewUser($data) === true) {
+                $this->load->view("register_successfully");
+            }
+            else if($this->register_model->addNewUser($data) === -1) {
+                $this->load->view("duplicate_email");
+            }
+            else {
+                $this->load->view("register_fail");
+            }
+
         }
            
     }
