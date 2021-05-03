@@ -1,27 +1,27 @@
 <?php
-class Login extends CI_Controller
-{
-
+class Register extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->library("session");
         $this->load->library("form_validation");
-        if (!$this->session->has_userdata('logged_in')) {
-            // echo "Chưa login";
-        }
+        $this->load->library("encryption");
     }
 
-    public function index()
-    {
-        $this->load->view("login");
-        // var_dump($this->session->has_userdata("id"));
+    public function index() {
+        $this->load->view("register");
     }
 
-    public function dologin()
-    {
+    public function doRegister() {
         // Kiểm tra thông tin nhập
         $rules = [
+            [
+                'field' => 'fullname',
+                'label' => 'Họ tên',
+                'rules' => 'trim|required',
+                'errors' => [
+                    'required' => 'Họ tên không được rỗng',
+                ]
+            ],
             [
                 'field' => 'email',
                 'label' => 'Email',
@@ -40,19 +40,22 @@ class Login extends CI_Controller
                 ]
             ]
         ];
+
         $this->form_validation->set_rules($rules);
 
-        // Chạy validation
-        if (!$this->form_validation->run()) {
-            // Nếu không hợp lệ thì load lại login
-            $this->load->view("login");
-        } else {
-            $data = [
-                'email' => 'test@gmail.com',
-                'logged_in' => TRUE
-            ];
-            $this->session->set_userdata($data);
-            redirect("login");
+        if(!$this->form_validation->run()) {
+            $this->load->view("register");
         }
+        else {
+             // Dữ liệu hợp lệ thì thêm vào hệ thống
+            $key = bin2hex($this->encryption->create_key(16));
+            $config['encryption_key'] = hex2bin($key);
+            
+            $data = [
+                $this->input->post("fullname", TRUE), // TRUE là XSS filter 
+                $this->input->post("email", TRUE)
+            ];
+        }
+           
     }
 }

@@ -130,7 +130,11 @@
         <div class="container">
           <div class="row">
             <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
-              <form method="post" action="<?=base_url()?>login/dologin">
+            <!-- Hiển thị thông tin validation form -->
+            <?=validation_errors('<div class="alert alert-warning">','</div>');?>
+            <!--/.Hiển thị thông tin validation form -->
+
+            <?php echo form_open('login/dologin'); ?>
               <!--Form with header-->
               <div class="card wow fadeIn" data-wow-delay="0.3s">
                 <div class="card-body">
@@ -143,13 +147,13 @@
                   <!--Body-->
                   <div class="md-form">
                     <i class="fas fa-envelope prefix white-text"></i>
-                    <input type="text" id="orangeForm-email" class="form-control">
+                    <input type="text" name="email" value="<?php echo set_value('email'); ?>" class="form-control">
                     <label for="orangeForm-email">Email:</label>
                   </div>
 
                   <div class="md-form">
                     <i class="fas fa-lock prefix white-text"></i>
-                    <input type="password" id="orangeForm-pass" class="form-control">
+                    <input type="password" name="password" class="form-control">
                     <label for="orangeForm-pass">Mật khẩu</label>
                   </div>
 
