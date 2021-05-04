@@ -35,4 +35,12 @@ class Login_model extends CI_Model
             return false;
         }
     }
+
+    public function getUserRole($user = NULL) {
+        if (!$user) {
+            return false;
+        }
+        $query = $this->db->get_where('users', ['email' => $user['email']]);
+        return $query->row_array()['role'];
+    }
 }

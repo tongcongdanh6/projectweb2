@@ -61,7 +61,8 @@ class Login extends CI_Controller
                     // Đăng nhập hợp lệ thì set session
                     $session_data = [
                         'email' => $userdata['email'],
-                        'logged_in' => TRUE
+                        'logged_in' => TRUE,
+                        'role' => $this->login_model->getUserRole($userdata)
                     ];
                     $this->session->set_userdata($session_data);
                     redirect("dashboard");

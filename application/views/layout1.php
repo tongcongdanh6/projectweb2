@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +7,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Material Design Bootstrap</title>
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?=base_url()?>public/css/all.css">
+  <link rel="stylesheet" href="<?= base_url() ?>public/css/all.css">
   <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="<?=base_url()?>public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>public/css/bootstrap.min.css">
   <!-- Material Design Bootstrap -->
-  <link rel="stylesheet" href="<?=base_url()?>public/css/mdb.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>public/css/mdb.min.css">
   <!-- Your custom styles (optional) -->
   <style>
 
@@ -49,25 +48,34 @@
           <ul class="collapsible collapsible-accordion">
 
             <li>
-              <a class="waves-effect arrow-r" href="dashboard">
+              <a class="waves-effect arrow-r" href="<?= base_url() ?>dashboard">
                 <i class="w-fa fas fa-tachometer-alt"></i>Bảng điều khiển</i>
               </a>
             </li>
-            <li>
-              <a class="collapsible-header waves-effect arrow-r">
-                <i class="w-fa fas fa-user"></i>Người dùng<i class="fas fa-angle-down rotate-icon"></i>
-              </a>
-              <div class="collapsible-body">
-                <ul>
-                  <li>
-                    <a href="<?=base_url()?>users/add" class="waves-effect"><i class="fas fa-plus"></i>Thêm người dùng</a>
-                  </li>
-                  <li>
-                    <a href="<?=base_url()?>users" class="waves-effect"><i class="fas fa-list-ul"></i>Quản lý người dùng</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
+            <?php
+              if (intval($this->session->userdata('role')) === 1) {
+            ?>
+              <li>
+                <a class="collapsible-header waves-effect arrow-r">
+                  <i class="w-fa fas fa-user"></i>Người dùng<i class="fas fa-angle-down rotate-icon"></i>
+                </a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li>
+                      <a href="<?= base_url() ?>users/add" class="waves-effect"><i class="fas fa-plus"></i>Thêm người dùng</a>
+                    </li>
+                    <li>
+                      <a href="<?= base_url() ?>users" class="waves-effect"><i class="fas fa-list-ul"></i>Quản lý người dùng</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+            <?php
+              }
+            ?>
+
+
             <li>
               <a class="collapsible-header waves-effect arrow-r">
                 <i class="w-fa fab fa-css3"></i>CSS<i class="fas fa-angle-down rotate-icon"></i>
@@ -221,24 +229,19 @@
 
             <!-- Simple link -->
             <li>
-              <a href="../alerts/alerts.html" class="collapsible-header waves-effect"><i
-                  class="w-fa far fa-bell"></i>Alerts</a>
+              <a href="../alerts/alerts.html" class="collapsible-header waves-effect"><i class="w-fa far fa-bell"></i>Alerts</a>
             </li>
             <li>
-              <a href="../modals/modals.html" class="collapsible-header waves-effect"><i
-                  class="w-fa fas fa-bolt"></i>Modals</a>
+              <a href="../modals/modals.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-bolt"></i>Modals</a>
             </li>
             <li>
-              <a href="../charts/charts.html" class="collapsible-header waves-effect"><i
-                  class="w-fa fas fa-chart-pie"></i>Charts</a>
+              <a href="../charts/charts.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-chart-pie"></i>Charts</a>
             </li>
             <li>
-              <a href="../calendar/calendar.html" class="collapsible-header waves-effect"><i
-                  class="w-fa far fa-calendar-check"></i>Calendar</a>
+              <a href="../calendar/calendar.html" class="collapsible-header waves-effect"><i class="w-fa far fa-calendar-check"></i>Calendar</a>
             </li>
             <li>
-              <a href="../sections/sections.html" class="collapsible-header waves-effect"><i
-                  class="w-fa fas fa-th-large"></i>Sections</a>
+              <a href="../sections/sections.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-th-large"></i>Sections</a>
             </li>
 
           </ul>
@@ -274,8 +277,7 @@
 
           <!-- Dropdown -->
           <li class="nav-item dropdown notifications-nav">
-            <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="badge red">3</span> <i class="fas fa-bell"></i>
               <span class="d-none d-md-inline-block">Notifications</span>
             </a>
@@ -298,20 +300,17 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect"><i class="fas fa-envelope"></i> <span
-                class="clearfix d-none d-sm-inline-block">Contact</span></a>
+            <a class="nav-link waves-effect"><i class="fas fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect"><i class="far fa-comments"></i> <span
-                class="clearfix d-none d-sm-inline-block">Support</span></a>
+            <a class="nav-link waves-effect"><i class="far fa-comments"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block"><?=$this->session->userdata("email")?></span>
+            <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block"><?= $this->session->userdata("email") ?></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="logout">Log Out</a>
+              <a class="dropdown-item" href="<?= base_url() ?>logout">Log Out</a>
               <a class="dropdown-item" href="#">My account</a>
             </div>
           </li>
@@ -346,7 +345,7 @@
 
   <!-- Main layout -->
   <main>
-    <?php $this->load->view($subview)?>
+    <?php $this->load->view($subview) ?>
   </main>
   <!-- Main layout -->
 
@@ -365,13 +364,13 @@
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
-  <script src="<?=base_url()?>public/js/jquery-3.4.1.min.js"></script>
+  <script src="<?= base_url() ?>public/js/jquery-3.4.1.min.js"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="<?=base_url()?>public/js/popper.min.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>public/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="<?=base_url()?>public/js/bootstrap.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>public/js/bootstrap.js"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="<?=base_url()?>public/js/mdb.min.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>public/js/mdb.min.js"></script>
 
   <!-- Initializations -->
   <script>
@@ -389,24 +388,23 @@
     $('.datepicker').pickadate();
 
     // Material Select Initialization
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('.mdb-select').material_select();
     });
 
     // Tooltips Initialization
-    $(function () {
+    $(function() {
       $('[data-toggle="tooltip"]').tooltip()
     })
-
   </script>
 
   <!-- Charts -->
   <script>
     // Small chart
-    $(function () {
+    $(function() {
       $('.min-chart#chart-sales').easyPieChart({
         barColor: "#FF5252",
-        onStep: function (from, to, percent) {
+        onStep: function(from, to, percent) {
           $(this.el).find('.percent').text(Math.round(percent));
         }
       });
@@ -456,8 +454,8 @@
       }
     });
 
-    $(function () {
-      $('#dark-mode').on('click', function (e) {
+    $(function() {
+      $('#dark-mode').on('click', function(e) {
 
         e.preventDefault();
         $('h4, button').not('.check').toggleClass('dark-grey-text text-white');
@@ -475,9 +473,13 @@
 
       });
     });
-
   </script>
-
+  <script>
+    // Material Select Initialization
+    $(document).ready(function() {
+      $('.mdb-select').materialSelect();
+    });
+  </script>
 </body>
 
 </html>
