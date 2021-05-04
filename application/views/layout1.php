@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Material Design Bootstrap</title>
+  <title><?= $pageTitle ?></title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url() ?>public/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -13,9 +13,6 @@
   <!-- Material Design Bootstrap -->
   <link rel="stylesheet" href="<?= base_url() ?>public/css/mdb.min.css">
   <!-- Your custom styles (optional) -->
-  <style>
-
-  </style>
 </head>
 
 <body class="fixed-sn white-skin">
@@ -53,7 +50,7 @@
               </a>
             </li>
             <?php
-              if (intval($this->session->userdata('role')) === 1) {
+            if (intval($this->session->userdata('role')) === 1) {
             ?>
               <li>
                 <a class="collapsible-header waves-effect arrow-r">
@@ -72,7 +69,7 @@
               </li>
 
             <?php
-              }
+            }
             ?>
 
 
@@ -355,7 +352,7 @@
     <!-- Copyright -->
     <div class="footer-copyright py-3 text-center">
       <div class="container-fluid">
-        © 2019 Copyright: <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+        © 2021 Copyright by ...
       </div>
     </div>
 
@@ -371,6 +368,8 @@
   <script type="text/javascript" src="<?= base_url() ?>public/js/bootstrap.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="<?= base_url() ?>public/js/mdb.min.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>public/js/addons/datatables.min.js"></script>
+  <script type="text/javascript" src="<?= base_url() ?>public/js/addons/datatables-select.js"></script>
 
   <!-- Initializations -->
   <script>
@@ -478,6 +477,10 @@
     // Material Select Initialization
     $(document).ready(function() {
       $('.mdb-select').materialSelect();
+
+
+      $('#dtMaterialDesignExample').DataTable();
+      
     });
   </script>
 </body>

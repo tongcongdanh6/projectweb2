@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <!-- Section: Inputs -->
-    <?=form_open("users/addNewStaff");?>
+    <?= form_open("users/addNewStaff"); ?>
     <section class="section card mb-5">
         <h1 class="card-header primary-color white-text text-center">Thêm nhân viên mới</h1>
         <div class="card-body">
@@ -55,14 +55,17 @@
 
             <!-- Grid row -->
             <div class="row text-left">
-
                 <!-- Grid column -->
                 <div class="col-md-12 mb-4">
                     <label for="staff_department" data-error="wrong" data-success="right">Bộ phận (phòng)</label>
                     <select class="mdb-select md-form" name="staff_department">
-                        <option value="department_kd">Phòng kinh doanh</option>
-                        <option value="department_it">Phòng IT</option>
-                        <option value="department_cl">Phòng chiến lược</option>
+                        <?php
+                        foreach ($department_list as $value) {
+                        ?>
+                            <option value="<?=$value['slug']?>"><?=$value['name']?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
 
                 </div>

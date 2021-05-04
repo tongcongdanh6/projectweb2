@@ -12,6 +12,7 @@ class Dashboard extends CI_Controller {
 
     public function index() {
         $data = [
+            'pageTitle' => 'Bảng điều khiển chung',
             'subview' => 'dashboard/index'
         ];
         $this->load->view("layout1", $data);
