@@ -24,9 +24,6 @@
                                             <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Office
                     : activate to sort column ascending" style="width: 55.6px;">Vị trí
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Age
-                    : activate to sort column ascending" style="width: 25.2px;">Quyền
-                                            </th>
                                             <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Start date
                     : activate to sort column ascending" style="width: 58.8px;">Email
                                             </th>
@@ -38,9 +35,8 @@
                                         ?>
                                             <tr role="row">
                                                 <td><?=$s['fullname']?></td>
-                                                <td><?=$s['department']?></td>
-                                                <td>Tokyo</td>
-                                                <td><?=$s['role']?></td>
+                                                <td><?=$s['department_name']?></td>
+                                                <td><?=$s['position_name']?></td>
                                                 <td><?=$s['email']?></td>
                                             </tr>
                                         <?php

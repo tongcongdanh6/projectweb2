@@ -11,11 +11,20 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
-        $data = [
-            'pageTitle' => 'Bảng điều khiển chung',
-            'subview' => 'dashboard/index'
-        ];
-        $this->load->view("layout1", $data);
+        if(intval($this->session->userdata("role")) === 1) {
+            $data = [
+                'pageTitle' => 'Bảng điều khiển chung',
+                'subview' => 'dashboard/index'
+            ];
+            $this->load->view("layout1", $data);
+        }
+        else {
+            $data = [
+                'pageTitle' => 'Bảng điều khiển chung',
+                'subview' => 'dashboard/userdashboard'
+            ];
+            $this->load->view("layout1", $data);
+        }
     }
 
     public function test() {

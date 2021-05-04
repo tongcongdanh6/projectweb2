@@ -10,4 +10,9 @@ class User_model extends CI_Model {
         $query = $this->db->get("users");
         return $query->result_array();
     }
+
+    public function getPositionNameById($id) {
+        $query = $this->db->get_where("position", ['id' => $id]);
+        return $query->row_array()['name'];
+    }
 }

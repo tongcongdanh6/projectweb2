@@ -229,7 +229,18 @@
                         <input type="password" id="password" name="password" class="form-control">
                         <label for="orangeForm-pass">Mật khẩu</label>
                       </div>
-
+                
+                      <label for="staff_department" data-error="wrong" data-success="right">Bộ phận (phòng)</label>
+                      <select class="mdb-select md-form" name="staff_department">
+                          <?php
+                          foreach ($department_list as $value) {
+                          ?>
+                              <option value="<?=$value['slug']?>"><?=$value['name']?></option>
+                          <?php
+                          }
+                          ?>
+                      </select>
+                      
                       <div class="text-center">
                         <button class="btn btn-indigo btn-rounded mt-5">Đăng ký</button>
                       </div>
@@ -268,6 +279,9 @@
   <script type="text/javascript" src="<?=base_url();?>public/js/mdb.min.js"></script>
   <script>
     new WOW().init();
+    $(document).ready(function() {
+      $('.mdb-select').materialSelect();
+    });
 
   </script>
 </body>

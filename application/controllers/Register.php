@@ -6,10 +6,14 @@ class Register extends CI_Controller {
         $this->load->library("form_validation");
         $this->load->library("encryption");
         $this->load->model("register_model");
+        $this->load->model("department_model");
     }
 
     public function index() {
-        $this->load->view("register");
+        $data = [
+            "department_list" => $this->department_model->getListDepartment()
+        ];
+        $this->load->view("register", $data);
     }
 
     public function doRegister() {
@@ -56,7 +60,7 @@ class Register extends CI_Controller {
                 'email' => $this->input->post("email", TRUE),
                 'password' => $encrypted_password,
                 'fullname' => $this->input->post("fullname", TRUE),
-                'role' => 1,
+                'department' => $this->department_model->getIdDepartment($this->input->post("staff_department")),
                 'created_at' => date("Y-m-d h:i:sa")
             ];
 
