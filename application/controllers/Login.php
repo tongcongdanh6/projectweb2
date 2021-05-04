@@ -71,7 +71,9 @@ class Login extends CI_Controller
                     $this->load->view("login");
                 }
             } else {
-                echo "không";
+                // Sai thông tin đăng nhập
+                $this->session->set_flashdata('invalidAuthenInfo', 'Sai thông tin đăng nhập');
+                $this->load->view("login");
             }
         }
     }
