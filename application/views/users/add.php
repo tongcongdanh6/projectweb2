@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <!-- Section: Inputs -->
-    <?= form_open("users/addNewStaff"); ?>
+    <?= form_open("users/doAddNewStaff"); ?>
     <section class="section card mb-5">
         <h1 class="card-header primary-color white-text text-center">Thêm nhân viên mới</h1>
         <div class="card-body">
-
+            <?=validation_errors('<div class="alert alert-warning">','</div>')?>
             <!-- Grid row -->
             <div class="row">
 
@@ -12,7 +12,7 @@
                 <div class="col-md-12">
 
                     <div class="md-form md-outline">
-                        <input type="text" name="staff_fullname" class="form-control">
+                        <input type="text" name="staff_fullname" class="form-control" value="<?=set_value('staff_fullname')?>">
                         <label for="staff_fullname" class="">Họ và tên nhân viên</label>
                     </div>
 
@@ -29,8 +29,8 @@
                     <!-- Email validation -->
                     <div class="md-form md-outline">
                         <i class="fas fa-envelope prefix"></i>
-                        <input type="email" name="staff_email" class="form-control validate">
-                        <label for="staff_email" data-error="wrong" data-success="right">Email</label>
+                        <input type="email" name="staff_email" class="form-control" value="<?=set_value('staff_email')?>">
+                        <label for="staff_email">Email</label>
                     </div>
 
                 </div>

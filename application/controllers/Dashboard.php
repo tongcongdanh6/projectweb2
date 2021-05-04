@@ -11,6 +11,7 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
+        // Bảng quản trị cho ADMIN
         if(intval($this->session->userdata("role")) === 1) {
             $data = [
                 'pageTitle' => 'Bảng điều khiển chung',
@@ -18,6 +19,7 @@ class Dashboard extends CI_Controller {
             ];
             $this->load->view("layout1", $data);
         }
+        // Bảng quản trị cho User
         else {
             $data = [
                 'pageTitle' => 'Bảng điều khiển chung',
