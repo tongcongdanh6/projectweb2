@@ -22,6 +22,7 @@ class Users extends CI_Controller
         $staff_list = [];
         foreach ($this->user_model->getStaffList() as $s) {
             array_push($staff_list, [
+                'id' => $s['id'],
                 'fullname' => $s['fullname'],
                 'department_name' => $this->department_model->getNameById(intval($s['department'])),
                 'position_name' => $this->user_model->getPositionNameById(intval($s['position'])),

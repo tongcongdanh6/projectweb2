@@ -71,136 +71,17 @@
             <?php
             }
             ?>
-
-
             <li>
               <a class="collapsible-header waves-effect arrow-r">
-                <i class="w-fa fab fa-css3"></i>CSS<i class="fas fa-angle-down rotate-icon"></i>
+                <i class="w-fa fas fa-table"></i>Công việc<i class="fas fa-angle-down rotate-icon"></i>
               </a>
               <div class="collapsible-body">
                 <ul>
                   <li>
-                    <a href="../css/grid.html" class="waves-effect">Grid system</a>
+                    <a href="<?= base_url() ?>task/add" class="waves-effect"><i class="fas fa-plus"></i>Thêm công việc</a>
                   </li>
                   <li>
-                    <a href="../css/media.html" class="waves-effect">Media object</a>
-                  </li>
-                  <li>
-                    <a href="../css/utilities.html" class="waves-effect">Utilities / helpers</a>
-                  </li>
-                  <li>
-                    <a href="../css/code.html" class="waves-effect">Code</a>
-                  </li>
-                  <li>
-                    <a href="../css/icons.html" class="waves-effect">Icons</a>
-                  </li>
-                  <li>
-                    <a href="../css/images.html" class="waves-effect">Images</a>
-                  </li>
-                  <li>
-                    <a href="../css/typography.html" class="waves-effect">Typography</a>
-                  </li>
-                  <li>
-                    <a href="../css/animations.html" class="waves-effect">Animations</a>
-                  </li>
-                  <li>
-                    <a href="../css/colors.html" class="waves-effect">Colors</a>
-                  </li>
-                  <li>
-                    <a href="../css/hover.html" class="waves-effect">Hover effects</a>
-                  </li>
-                  <li>
-                    <a href="../css/masks.html" class="waves-effect">Masks</a>
-                  </li>
-                  <li>
-                    <a href="../css/shadows.html" class="waves-effect">Shadows</a>
-                  </li>
-                  <li>
-                    <a href="../css/skins.html" class="waves-effect">Skins</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a class="collapsible-header waves-effect arrow-r">
-                <i class="w-fa fas fa-th"></i>Components<i class="fas fa-angle-down rotate-icon"></i>
-              </a>
-              <div class="collapsible-body">
-                <ul>
-                  <li>
-                    <a href="../components/buttons.html" class="waves-effect">Buttons</a>
-                  </li>
-                  <li>
-                    <a href="../components/cards.html" class="waves-effect">Cards</a>
-                  </li>
-                  <li>
-                    <a href="../components/collapse.html" class="waves-effect">Collapse</a>
-                  </li>
-                  <li>
-                    <a href="../components/date.html" class="waves-effect">Date picker</a>
-                  </li>
-                  <li>
-                    <a href="../components/list.html" class="waves-effect">List group</a>
-                  </li>
-                  <li>
-                    <a href="../components/panels.html" class="waves-effect">Panels</a>
-                  </li>
-                  <li>
-                    <a href="../components/pagination.html" class="waves-effect">Pagination</a>
-                  </li>
-                  <li>
-                    <a href="../components/popovers.html" class="waves-effect">Popovers</a>
-                  </li>
-                  <li>
-                    <a href="../components/progress.html" class="waves-effect">Progress bars</a>
-                  </li>
-                  <li>
-                    <a href="../components/stepper.html" class="waves-effect">Stepper</a>
-                  </li>
-                  <li>
-                    <a href="../components/tabs.html" class="waves-effect">Tabs & pills</a>
-                  </li>
-                  <li>
-                    <a href="../components/tags.html" class="waves-effect">Tags, labels & badges</a>
-                  </li>
-                  <li>
-                    <a href="../components/time.html" class="waves-effect">Time picker</a>
-                  </li>
-                  <li>
-                    <a href="../components/tooltips.html" class="waves-effect">Tooltips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a class="collapsible-header waves-effect arrow-r">
-                <i class="w-fa far fa-check-square"></i>Forms<i class="fas fa-angle-down rotate-icon"></i>
-              </a>
-              <div class="collapsible-body">
-                <ul>
-                  <li>
-                    <a href="../forms/basic.html" class="waves-effect">Basic</a>
-                  </li>
-                  <li>
-                    <a href="../forms/extended.html" class="waves-effect">Extended</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a class="collapsible-header waves-effect arrow-r">
-                <i class="w-fa fas fa-table"></i>Tables<i class="fas fa-angle-down rotate-icon"></i>
-              </a>
-              <div class="collapsible-body">
-                <ul>
-                  <li>
-                    <a href="../tables/basic.html" class="waves-effect">Basic</a>
-                  </li>
-                  <li>
-                    <a href="../tables/extended.html" class="waves-effect">Extended</a>
-                  </li>
-                  <li>
-                    <a href="../tables/datatables.html" class="waves-effect">DataTables.net</a>
+                    <a href="<?= base_url() ?>task" class="waves-effect"><i class="fas fa-list-ul"></i>Danh sách công việc</a>
                   </li>
                 </ul>
               </div>
@@ -480,7 +361,7 @@
 
 
       $('#dtMaterialDesignExample').DataTable();
-      
+
     });
   </script>
 </body>

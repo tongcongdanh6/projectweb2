@@ -15,6 +15,9 @@
                                 <table id="dtMaterialDesignExample" class="table table-striped dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="dtMaterialDesignExample_info" style="width: 100%;">
                                     <thead>
                                         <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name
+                    : activate to sort column descending" style="width: 78px;">ID
+                                            </th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name
                     : activate to sort column descending" style="width: 78px;">Tên
                                             </th>
@@ -34,6 +37,7 @@
                                         foreach ($staffList as $key => $s) {
                                         ?>
                                             <tr role="row">
+                                                <td><?=$s['id']?></td>
                                                 <td><?=$s['fullname']?></td>
                                                 <td><?=$s['department_name']?></td>
                                                 <td><?=$s['position_name']?></td>
