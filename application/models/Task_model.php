@@ -5,6 +5,11 @@ class Task_model extends CI_Model {
         $this->load->database();
     }
 
+    public function getAllTasks() {
+        $query = $this->db->select("*")->from("tasks")->join("users","tasks.creator = users.id")->get();
+        return $query->result_array();
+    }
+
     public function getTasksByDepartment($slug_department = "") {
         if($slug_department == "") {
             return [];

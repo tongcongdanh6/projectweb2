@@ -8,7 +8,14 @@ class Task extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view("task/index");
+        $tasks_data = $this->task_model->getAllTasks();
+
+        $data = [
+            'pageTitle' => 'Danh sách công việc',
+            'subview' => 'task/index',
+            'tasks_data' => $tasks_data
+        ];
+        $this->load->view("layout1", $data);
     }
 
     public function detail($taskid = NULL) {
