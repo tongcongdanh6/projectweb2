@@ -1,5 +1,5 @@
 <?php
-var_dump($tasks_data);
+// var_dump($tasks_data);
 ?>
 <div class="container-fluid mb-5">
 
@@ -32,6 +32,9 @@ var_dump($tasks_data);
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Start date
                     : activate to sort column ascending" style="width: 58.8px;">Tóm tắt nội dung
+                                            </th>                                            
+                                            <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Start date
+                    : activate to sort column ascending" style="width: 58.8px;">Tạo vào
                                             </th>
                                         </tr>
                                     </thead>
@@ -41,10 +44,11 @@ var_dump($tasks_data);
                                         ?>
                                             <tr role="row">
                                                 <td><?=$s['id']?></td>
-                                                <td><?=$s['creator']?></td>
-                                                <td><?=$s['handler']?></td>
+                                                <td><?=$s['creator_fullname']?></td>
+                                                <td><?=$s['handler_fullname']?></td>
                                                 <td><?=$s['title']?></td>
                                                 <td><?=$s['content']?></td>
+                                                <td><?=$s['created_at']?></td>
                                             </tr>
                                         <?php
                                         }

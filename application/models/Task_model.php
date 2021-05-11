@@ -6,7 +6,17 @@ class Task_model extends CI_Model {
     }
 
     public function getAllTasks() {
-        $query = $this->db->select("*")->from("tasks")->join("users","tasks.creator = users.id")->get();
+        /*
+        SELECT u1.fullname AS 'creator_fullname', u2.fullname AS 'handler_fullname' 
+        FROM `tasks` 
+        JOIN `users` AS u1 ON u1.id = tasks.creator 
+        JOIN `users` AS u2 ON u2.id = tasks.handler
+        */
+        $query = $this->db->select("u1.fullname AS 'creator_fullname', u2.fullname AS 'handler_fullname', tasks.id, tasks.title, tasks.content, tasks.created_at")
+        ->from("tasks")
+        ->join("users AS u1","tasks.creator = u1.id")
+        ->join("users AS u2","tasks.handler = u2.id")
+        ->get();
         return $query->result_array();
     }
 
