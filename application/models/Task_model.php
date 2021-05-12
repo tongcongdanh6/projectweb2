@@ -29,6 +29,28 @@ class Task_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function getTasksByDepartmentToTable($id) {
+        if(!$id) return;
+
+        $query = $this->db->select("u1.fullname AS 'creator_fullname', u2.fullname AS 'handler_fullname', tasks.id, tasks.title, tasks.content, tasks.created_at")
+        ->from("tasks")->where("tasks.creator", $this->session->userdata("id"))
+        ->join("users AS u1","tasks.creator = u1.id")
+        ->join("users AS u2","tasks.handler = u2.id")
+        ->get();
+
+        return $query->result_array();
+    }
+
+    public function getTasksByIdHandlerToTable($id) {
+        if(!$id) return [];
+        $query = $this->db->select("u1.fullname AS 'creator_fullname', u2.fullname AS 'handler_fullname', tasks.id, tasks.title, tasks.content, tasks.created_at")
+        ->from('tasks')->where("handler",$id)
+        ->join("users AS u1","tasks.creator = u1.id")
+        ->join("users AS u2","tasks.handler = u2.id")
+        ->get();
+        return $query->result_array();
+    }
+
     public function getTasksByDepartment($idOrslug) {
         if(!$idOrslug) return;
         

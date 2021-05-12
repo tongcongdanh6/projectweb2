@@ -360,7 +360,12 @@
       $('.mdb-select').materialSelect();
 
 
-      $('#dtMaterialDesignExample').DataTable();
+      $('#dtMaterialDesignExample').DataTable(
+        {
+          "responsive": true,
+          "autoWidth": true
+        }
+      );
 
     });
   </script>

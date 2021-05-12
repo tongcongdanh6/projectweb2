@@ -19,22 +19,22 @@
                                     <thead>
                                         <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name
-                    : activate to sort column descending" style="width: 78px;">ID Công việc
+                    : activate to sort column descending">ID
                                             </th>
                                             <th class="sorting_asc" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name
-                    : activate to sort column descending" style="width: 78px;">Người tạo
+                    : activate to sort column descending">Người tạo
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Position
-                    : activate to sort column ascending" style="width: 130.8px;">Người được giao
+                    : activate to sort column ascending">Người được giao
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Office
-                    : activate to sort column ascending" style="width: 55.6px;">Tiêu đề
+                    : activate to sort column ascending">Tiêu đề
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Start date
-                    : activate to sort column ascending" style="width: 58.8px;">Tóm tắt nội dung
+                    : activate to sort column ascending">Tóm tắt nội dung
                                             </th>                                            
                                             <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Start date
-                    : activate to sort column ascending" style="width: 58.8px;">Tạo vào
+                    : activate to sort column ascending">Tạo vào
                                             </th>
                                         </tr>
                                     </thead>
@@ -46,9 +46,11 @@
                                                 <td><?=$s['id']?></td>
                                                 <td><?=$s['creator_fullname']?></td>
                                                 <td><?=$s['handler_fullname']?></td>
-                                                <td><?=$s['title']?></td>
+                                                <td>
+                                                    <a href="<?=base_url()?>task/detail/<?=$s['id']?>" class="btn btn-primary btn-sm"><?=$s['title']?></a>
+                                                </td>
                                                 <td><?=$s['content']?></td>
-                                                <td><?=$s['created_at']?></td>
+                                                <td><?=date("d-m-Y H:i:s", strtotime($s['created_at']))?></td>
                                             </tr>
                                         <?php
                                         }

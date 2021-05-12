@@ -13,8 +13,19 @@ class Task extends CI_Controller
 
     public function index()
     {
-        $tasks_data = $this->task_model->getAllTasks();
-
+        if(intval($this->session->userdata("role")) == 1) {
+            // Nếu là admin thì lấy full danh sách task
+            $tasks_data = $this->task_model->getAllTasks();
+        }
+        else {
+            // Không là admin thì nếu là Trưởng phòng thì lấy danh sách task theo phòng ban mà trưởng phòng quản lý
+            if(intval($this->session->userdata("position")) == 1) {
+                $tasks_data = $this->task_model->getTasksByDepartmentToTable($this->session->userdata("department"));
+            }
+            else {
+                $tasks_data = $this->task_model->getTasksByIdHandlerToTable($this->session->userdata("id"));
+            }
+        }
         $data = [
             'pageTitle' => 'Danh sách công việc',
             'subview' => 'task/index',
