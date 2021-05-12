@@ -120,8 +120,8 @@ class Task extends CI_Controller
                 'title' => $this->input->post("task_title", TRUE),
                 'slug' => url_title(convert_accented_characters($this->input->post("task_title", TRUE)), 'dash', true),
                 'content' => $this->input->post("task_content", TRUE),
-                'deadline' => date("Y-m-d h:i:sa", strtotime($this->input->post("task_deadline", TRUE))),
-                'created_at' => date("Y-m-d h:i:sa")
+                'deadline' => date("Y-m-d H:i:s", strtotime($this->input->post("task_deadline", TRUE))),
+                'created_at' => date("Y-m-d H:i:s")
             ];
 
             if($this->task_model->addNewTask($data)) {

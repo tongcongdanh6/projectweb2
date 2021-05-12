@@ -6,6 +6,6 @@
 
 <?php
     // echo $_POST["datetime"];
-    echo date("Y-m-d h", strtotime($_POST["datetime"]));
+    echo date("Y-m-d H:i:s", strtotime($_POST["datetime"]));
     // echo date("Y-m-d h:i:sa", $_POST["datetime"]);
 ?>
