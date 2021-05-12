@@ -31,11 +31,23 @@ class Dashboard extends CI_Controller {
             ];
             $this->load->view("layout1", $data);
         }
-        // Bảng quản trị cho User
+        // Bảng quản trị cho Truong Phong
+        else if(intval($this->session->userdata("position")) === 1) {
+            // Lấy dữ liệu Task cho phòng ban mà trưởng phỏng đang quản lý
+            $tasks_data = $this->task_model->getTasksByDepartment(intval($this->session->userdata("department")));
+
+            $data = [
+                'pageTitle' => 'Bảng điều khiển chung',
+                'subview' => 'dashboard/truongphong_dashboard',
+                'tasks_data' => $tasks_data
+            ];
+            $this->load->view("layout1", $data);
+        }
+        // Bảng quản trị cho nhân viên
         else {
             $data = [
                 'pageTitle' => 'Bảng điều khiển chung',
-                'subview' => 'dashboard/userdashboard'
+                'subview' => 'dashboard/nhanvien_dashboard'
             ];
             $this->load->view("layout1", $data);
         }

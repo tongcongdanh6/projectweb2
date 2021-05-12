@@ -20,34 +20,41 @@ class Task_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function getTasksByDepartment($slug_department = "") {
-        if($slug_department == "") {
-            return [];
+    public function getTasksByDepartment($idOrslug) {
+        if(!$idOrslug) return;
+        
+        if(is_numeric($idOrslug)) {
+            $query = $this->db->select(array('tasks.id', 'tasks.creator','tasks.handler','tasks.title','tasks.content','tasks.status','tasks.created_at','tasks.soft_delete'))
+            ->from('tasks')->join('users','tasks.creator = users.id')
+            ->join('department','users.department = department.id')
+            ->where('department.id',$idOrslug)
+            ->get();
         }
-        // RETURN: Array of task of a department with the key
-        /*
-            [
-                'id' =>
-                'creator' =>
-                'handler' =>
-                'title' =>
-                'content' =>
-                'status' =>
-                'created_at' =>
-                'soft_delete' =>
-            ]
-        */
+        else {
+            // RETURN: Array of task of a department with the key
+            /*
+                [
+                    'id' =>
+                    'creator' =>
+                    'handler' =>
+                    'title' =>
+                    'content' =>
+                    'status' =>
+                    'created_at' =>
+                    'soft_delete' =>
+                ]
+            */
 
-        // $query = '
-        // SELECT tasks.id, tasks.creator, tasks.handler, tasks.title, tasks.content, tasks.status, tasks.created_at, tasks.soft_delete FROM `tasks` JOIN `users` ON tasks.creator = users.id JOIN `department` ON users.department = department.id
-        // ';
-        // Using Query Builder
-        $query = $this->db->select(array('tasks.id', 'tasks.creator','tasks.handler','tasks.title','tasks.content','tasks.status','tasks.created_at','tasks.soft_delete'))
-        ->from('tasks')->join('users','tasks.creator = users.id')
-        ->join('department','users.department = department.id')
-        ->where('department.slug',$slug_department)
-        ->get();
-
+            // $query = '
+            // SELECT tasks.id, tasks.creator, tasks.handler, tasks.title, tasks.content, tasks.status, tasks.created_at, tasks.soft_delete FROM `tasks` JOIN `users` ON tasks.creator = users.id JOIN `department` ON users.department = department.id
+            // ';
+            // Using Query Builder
+            $query = $this->db->select(array('tasks.id', 'tasks.creator','tasks.handler','tasks.title','tasks.content','tasks.status','tasks.created_at','tasks.soft_delete'))
+            ->from('tasks')->join('users','tasks.creator = users.id')
+            ->join('department','users.department = department.id')
+            ->where('department.slug',$idOrslug)
+            ->get();
+        }
         return $query->result_array();
     }
 
