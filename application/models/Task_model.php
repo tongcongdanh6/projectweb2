@@ -76,6 +76,12 @@ class Task_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function getTasksByIdHandler($id) {
+        if(!$id) return [];
+        $query = $this->db->select("*")->from('tasks')->where("handler",$id)->get();
+        return $query->result_array();
+    }
+
     public function isAuthorized($user = NULL, $task_id) {
         if(!$user) {
             return false;

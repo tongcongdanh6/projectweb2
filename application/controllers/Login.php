@@ -9,6 +9,7 @@ class Login extends CI_Controller
         $this->load->library("form_validation");
         $this->load->library("encryption");
         $this->load->model("login_model");
+        $this->load->model("user_model");
         if ($this->session->has_userdata('logged_in')) {
             redirect("dashboard");
         }
@@ -60,6 +61,7 @@ class Login extends CI_Controller
                 if ($this->login_model->validateUser($userdata) === TRUE) {
                     // Đăng nhập hợp lệ thì set session
                     $session_data = [
+                        'id' => $this->user_model->getUserIdByEmail($userdata['email']),
                         'email' => $userdata['email'],
                         'logged_in' => TRUE,
                         'role' => $this->login_model->getUserRole($userdata),

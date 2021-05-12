@@ -45,9 +45,12 @@ class Dashboard extends CI_Controller {
         }
         // Bảng quản trị cho nhân viên
         else {
+            // Lấy dữ liệu task mà nhân viên được giao
+            $tasks_data = $this->task_model->getTasksByIdHandler($this->session->userdata("id"));
             $data = [
                 'pageTitle' => 'Bảng điều khiển chung',
-                'subview' => 'dashboard/nhanvien_dashboard'
+                'subview' => 'dashboard/nhanvien_dashboard',
+                'tasks_data' => $tasks_data
             ];
             $this->load->view("layout1", $data);
         }

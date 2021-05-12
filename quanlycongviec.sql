@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 01:38 PM
+-- Generation Time: May 12, 2021 at 02:08 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -95,7 +95,9 @@ INSERT INTO `tasks` (`id`, `creator`, `handler`, `title`, `slug`, `content`, `st
 (5, 9, 10, 'Phòng nhân sự task 2', 'Phòng-nhân-sự-task-2', 'Phòng nhân sự task 2', 1, '2021-05-17 17:16:02', '2021-05-12 12:23:22', 0),
 (6, 9, 4, 'Nhân sự task 3', 'Nhân-sự-task-3', 'Nhân sự task 3', 1, '2021-05-17 17:16:02', '2021-05-12 01:22:21', 0),
 (7, 9, 10, 'Nhân sự task 4', 'nhan-su-task-4', 'Nhân sự task 4', 1, '2021-05-27 10:35:00', '2021-05-12 01:34:28', 0),
-(8, 3, 8, 'IT Task 2', 'it-task-2', 'IT Task 2', 1, '2021-05-26 08:38:00', '2021-05-12 01:37:17', 0);
+(8, 3, 8, 'IT Task 2', 'it-task-2', 'IT Task 2', 1, '2021-05-26 08:38:00', '2021-05-12 01:37:17', 0),
+(9, 3, 11, 'IT Task 3', 'it-task-3', 'IT Task 3', 1, '2021-05-27 06:57:00', '2021-05-12 01:57:20', 0),
+(10, 3, 11, 'IT Task 4', 'it-task-4', 'IT Task 4', 1, '2021-05-24 10:06:00', '2021-05-12 02:06:28', 0);
 
 -- --------------------------------------------------------
 
@@ -177,7 +179,7 @@ ALTER TABLE `position`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
