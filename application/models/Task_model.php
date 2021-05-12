@@ -5,6 +5,15 @@ class Task_model extends CI_Model {
         $this->load->database();
     }
 
+    public function addNewTask($taskdata = NULL) {
+        if(!$taskdata) {
+            return false;
+        }
+        
+        $this->db->insert("tasks",$taskdata);
+        return true;
+    } 
+
     public function getAllTasks() {
         /*
         SELECT u1.fullname AS 'creator_fullname', u2.fullname AS 'handler_fullname' 
