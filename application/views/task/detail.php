@@ -39,9 +39,50 @@ if ($isAuthorized == true) {
                     <!-- Card image -->
 
                     <!-- Card content -->
-                    <div class="card-body card-body-cascade text-center">
+                    <div class="card-body card-body-cascade">
 
-                        <p class="card-text pb-2"><?= $task_data[0]['content'] ?>
+                        <p class="card-text pb-2 text-center"><?= $task_data[0]['content'] ?>
+                        </p>
+                        <p class="card-text">Trạng thái:
+                            <?php
+                            if ($task_data[0]['status'] == 1) {
+                            ?>
+                                <span class="alert alert-primary">
+                                    Vừa được nhận
+                                </span>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if ($task_data[0]['status'] == 2) {
+                            ?>
+                                <span class="alert alert-warning">
+                                    Đang thực hiện
+                                </span>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if ($task_data[0]['status'] == 3) {
+                            ?>
+                                <span class="alert alert-danger">
+                                    Bị trì hoãn
+                                </span>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if ($task_data[0]['status'] == 4) {
+                            ?>
+                                <span class="alert alert-success">
+                                    Đã hoàn thành
+                                </span>
+                            <?php
+                            }
+                            ?>
+                        </p>
+                        <p class="card-text pb-2">Deadline:
+                        <b><?=date("d-m-Y H:i:s",strtotime($task_data[0]['deadline']))?></b>
                         </p>
                         <hr>
                         <!-- Twitter -->
