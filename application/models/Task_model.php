@@ -59,4 +59,20 @@ class Task_model extends CI_Model {
         $query = $this->db->select("*")->from('tasks')->where("id",$task_id)->get();
         return $query->result_array();
     }
+
+    public function isAuthorized($user = NULL, $task_id) {
+        if(!$user) {
+            return false;
+        }
+
+        $query = $this->db->select("T.id, U.department")->from('tasks as T')
+        ->join("users AS U","U.id = T.creator")->where('T.id', $task_id)->get();
+        $res = $query->row_array();
+        if($res['department'] == $user['department']) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

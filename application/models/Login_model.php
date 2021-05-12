@@ -43,4 +43,12 @@ class Login_model extends CI_Model
         $query = $this->db->get_where('users', ['email' => $user['email']]);
         return $query->row_array()['role'];
     }
+
+    public function getUserDepartment($user = NULL) {
+        if (!$user) {
+            return false;
+        }
+        $query = $this->db->get_where('users', ['email' => $user['email']]);
+        return $query->row_array()['department'];
+    }
 }
