@@ -1,11 +1,15 @@
 <?php
 class Task extends CI_Controller
 {
+    const STRING_NOT_FOUND = "Không tìm thấy công việc này";
+    const LABEL_ERROR = "Có lỗi xảy ra";
+
     public function __construct()
     {
         parent::__construct();
         $this->load->library("session");
         $this->load->library("form_validation");
+        $this->load->library("parser");
         $this->load->helper("text");
         $this->load->model("task_model");
         $this->load->model("user_model");
@@ -13,16 +17,14 @@ class Task extends CI_Controller
 
     public function index()
     {
-        if(intval($this->session->userdata("role")) == 1) {
+        if (intval($this->session->userdata("role")) == 1) {
             // Nếu là admin thì lấy full danh sách task
             $tasks_data = $this->task_model->getAllTasks();
-        }
-        else {
+        } else {
             // Không là admin thì nếu là Trưởng phòng thì lấy danh sách task theo phòng ban mà trưởng phòng quản lý
-            if(intval($this->session->userdata("position")) == 1) {
+            if (intval($this->session->userdata("position")) == 1) {
                 $tasks_data = $this->task_model->getTasksByDepartmentToTable($this->session->userdata("department"));
-            }
-            else {
+            } else {
                 $tasks_data = $this->task_model->getTasksByIdHandlerToTable($this->session->userdata("id"));
             }
         }
@@ -34,34 +36,31 @@ class Task extends CI_Controller
         $this->load->view("layout1", $data);
     }
 
+    private function checkAuthorizedByTaskId($taskid)
+    {
+        if ($this->session->userdata("role") == 1) {
+            // Là admin thì luôn luôn TRUE
+            return true;
+        } else {
+            return $this->task_model->isAuthorized($this->session->userdata(), $taskid);
+        }
+    }
+
     public function detail($taskid = NULL)
     {
         // Lấy task detail theo ID
         $task_data = $this->task_model->getTaskById($taskid);
         // Kiểm tra task có tồn tại hay không
         if (!$task_data) {
-            $data = [
-                'pageTitle' => 'Không tìm thấy chi tiết công việc',
-                'subview' => 'task/nodetail'
-            ];
-            $this->load->view("layout1", $data);
-            return;
+            show_error(self::STRING_NOT_FOUND, 404, self::LABEL_ERROR);
         }
 
-        // Nếu task có tồn tại thì kiểm tra tiếp quyền truy cập vào detail dựa vào quyền phòng ban
-        if ($this->session->userdata("role") == 1) {
-            // Là admin thì luôn luôn TRUE
-            $isAuthorized = true;
-        } else {
-            $isAuthorized = $this->task_model->isAuthorized($this->session->userdata(), $taskid);
-        }
-
-
+        // Nếu task có tồn tại 
         $data = [
             'pageTitle' => 'Chi tiết công việc',
             'subview' => 'task/detail',
             'task_data' => $task_data,
-            'isAuthorized' => $isAuthorized
+            'isAuthorized' => $this->checkAuthorizedByTaskId($taskid) // Kiểm tra quyền truy cập vào detail dựa vào quyền phòng ban
         ];
         $this->load->view("layout1", $data);
     }
@@ -122,9 +121,8 @@ class Task extends CI_Controller
 
         if (!$this->form_validation->run()) {
             $this->add();
-        } 
-        else {
-            
+        } else {
+
             $data = [
                 'creator' => $this->user_model->getUserIdByEmail($this->session->userdata("email")),
                 'handler' => intval($this->input->post("task_handler", TRUE)),
@@ -135,10 +133,27 @@ class Task extends CI_Controller
                 'created_at' => date("Y-m-d H:i:s")
             ];
 
-            if($this->task_model->addNewTask($data)) {
+            if ($this->task_model->addNewTask($data)) {
                 // $this->load->view("addtask_successfully");
                 redirect("task");
             }
         }
+    }
+
+    public function edit($taskid)
+    {
+        // Lấy task detail theo ID
+        $task_data = $this->task_model->getTaskById($taskid);
+        // Kiểm tra task có tồn tại hay không
+        if (!$task_data) {
+            show_error(self::STRING_NOT_FOUND, 404, self::LABEL_ERROR);
+        }
+        $data = [
+            'pageTitle' => 'Chỉnh sửa công việc',
+            'subview' => 'task/edit',
+            'task_data' => $task_data,
+            'isAuthorized' => $this->checkAuthorizedByTaskId($taskid)
+        ];
+        $this->load->view("layout1", $data);
     }
 }

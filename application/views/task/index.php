@@ -49,7 +49,7 @@
                                                 <td>
                                                     <a href="<?=base_url()?>task/detail/<?=$s['id']?>" class="btn btn-primary btn-sm"><?=$s['title']?></a>
                                                 </td>
-                                                <td><?=$s['content']?></td>
+                                                <td><?=word_limiter($s['content'], 9)?></td>
                                                 <td><?=date("d-m-Y H:i:s", strtotime($s['created_at']))?></td>
                                             </tr>
                                         <?php

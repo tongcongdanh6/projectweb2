@@ -93,6 +93,9 @@ if ($isAuthorized == true) {
                         <a class="p-2 m-2 fa-lg fb-ic"><i class="fab fa-facebook-f"> </i></a>
                         <!-- Email -->
                         <a class="p-2 m-2 fa-lg email-ic"><i class="fas fa-envelope"> </i></a>
+                        <a class="btn btn-primary btn-rounded waves-effect waves-light" href="<?=base_url()?>task/edit/<?=$task_data[0]['id']?>">Chỉnh sửa công việc này</a>
+                        <a data-toggle="modal" data-target="#confirmDeleteTask" class="btn btn-danger">Xóa công việc này!!!</a>
+                        
                     </div>
                     <!-- Card content -->
 
@@ -104,6 +107,44 @@ if ($isAuthorized == true) {
 
         </div>
 
+        <div class="modal fade" id="confirmDeleteTask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog modal-notify modal-danger" role="document">
+            <!-- Content -->
+            <div class="modal-content">
+              <!-- Header -->
+              <div class="modal-header">
+                <p class="heading">Xác nhận thao tác XÓA</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" class="white-text">×</span>
+                </button>
+              </div>
+
+              <!-- Body -->
+              <div class="modal-body">
+
+                <div class="row">
+                  <div class="col-3">
+                    <p></p>
+                    <p class="text-center"><i class="fas fa-times fa-4x"></i></p>
+                  </div>
+
+                  <div class="col-9">
+                    <p>Thao tác này khiến dữ liệu mất hoàn toàn trên máy chủ? Bạn có thực sự muốn thao tác không?</p>
+                    <h2>Mã công việc: <span class="badge"><?=$task_data[0]['id']?></span></h2>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Footer -->
+              <div class="modal-footer justify-content-center">
+                <a type="button" href="<?=base_url()?>task/delete/<?=$task_data[0]['id']?>" class="btn btn-danger waves-effect waves-light">XÓA</a>
+                <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">HỦY THAO TÁC</a>
+              </div>
+            </div>
+            <!-- Content -->
+          </div>
+        </div>
     </section>
 <?php
 }
