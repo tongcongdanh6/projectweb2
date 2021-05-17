@@ -20,7 +20,7 @@ class User_model extends CI_Model {
         if(is_numeric($idOrSlug)) {
             $query = $this->db->select("*")->from("users")
             ->where("department", $idOrSlug)
-            ->where("id <>".intval($currentUserId))
+            // ->where("id <>".intval($currentUserId))
             ->get();
         }
 
@@ -38,5 +38,26 @@ class User_model extends CI_Model {
         $query = $this->db->select("id")->from("users")->where("email", $email)->get();
 
         return $query->row_array()['id'];
+    }
+    
+    public function getListStaffExceptUserId($uid) {
+        if(!$uid) return "";
+
+        $staffByDepartment = $this->getStaffListByDepartment($this->session->userdata("department"));
+        
+        $result = array_filter($staffByDepartment, function($v, $k) {
+            return $v["id"] != $this->session->userdata("id");
+        }, ARRAY_FILTER_USE_BOTH);
+
+        // $query = $this->db->select("id, fullname")->where("id <>".$this->session->userdata("id"))->get();
+
+        return $result;
+    }
+
+    public function getDepartmentIdByUserId($uid) {
+        if(!$uid) return 0;
+        $query = $this->db->select("department")->from("users")->where("id", $uid)->get();
+
+        return $query->row_array()["department"];
     }
 }
