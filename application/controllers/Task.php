@@ -202,7 +202,7 @@ class Task extends CI_Controller
                 $this->db->where('id', $taskid);
                 $this->db->update('tasks', $data);
                 // var_dump($this->input->post("task_status", TRUE));
-                redirect("task");
+                redirect("task/detail/$taskid");
             }
         }
         // Kiểm tra thông tin nhập

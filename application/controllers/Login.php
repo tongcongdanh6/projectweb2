@@ -63,6 +63,7 @@ class Login extends CI_Controller
                     $session_data = [
                         'id' => $this->user_model->getUserIdByEmail($userdata['email']),
                         'email' => $userdata['email'],
+                        'fullname' => $this->user_model->getFullNameByEmail($userdata['email']),
                         'logged_in' => TRUE,
                         'role' => $this->login_model->getUserRole($userdata),
                         'position' => $this->login_model->getUserPosition($userdata),

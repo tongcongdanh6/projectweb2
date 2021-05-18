@@ -39,6 +39,14 @@ class User_model extends CI_Model {
 
         return $query->row_array()['id'];
     }
+
+    public function getFullNameByEmail($email) {
+        if(!$email) return "";
+
+        $query = $this->db->select("fullname")->from("users")->where("email", $email)->get();
+
+        return $query->row_array()['fullname'];
+    }
     
     public function getListStaffExceptUserId($uid) {
         if(!$uid) return "";
@@ -60,4 +68,5 @@ class User_model extends CI_Model {
 
         return $query->row_array()["department"];
     }
+    
 }

@@ -185,7 +185,20 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block"><?= $this->session->userdata("email") ?></span>
+              <i class="fas fa-user"></i> 
+              <span class="clearfix d-none d-sm-inline-block"><?=$this->session->userdata("fullname") ?></span> 
+              <?php
+                if($this->session->userdata("role") == 1) {
+                  echo '<span class="badge badge-pill badge-danger">Quản trị viên</span>';
+                } 
+                if($this->session->userdata("position") == 1) {
+                  echo '<span class="badge badge-pill badge-danger">Trưởng phòng </span>';
+                }
+                else {
+                  echo '<span class="badge badge-pill badge-success">Nhân viên </span>';
+                }
+              ?>
+              
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
               <a class="dropdown-item" href="<?= base_url() ?>logout">Log Out</a>
