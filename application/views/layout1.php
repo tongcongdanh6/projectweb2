@@ -40,91 +40,9 @@
           </form>
         </li>
 
-        <!-- Side navigation links -->
-        <li>
-          <ul class="collapsible collapsible-accordion">
-
-            <li>
-              <a class="waves-effect arrow-r" href="<?= base_url() ?>dashboard">
-                <i class="w-fa fas fa-tachometer-alt"></i>Bảng điều khiển</i>
-              </a>
-            </li>
-            <?php
-            if (intval($this->session->userdata('role')) === 1) {
-            ?>
-              <li>
-                <a class="collapsible-header waves-effect arrow-r">
-                  <i class="w-fa fas fa-user"></i>Người dùng<i class="fas fa-angle-down rotate-icon"></i>
-                </a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li>
-                      <a href="<?= base_url() ?>users/add" class="waves-effect"><i class="fas fa-plus"></i>Thêm người dùng</a>
-                    </li>
-                    <li>
-                      <a href="<?= base_url() ?>users" class="waves-effect"><i class="fas fa-list-ul"></i>Quản lý người dùng</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-
-            <?php
-            }
-            ?>
-            <li>
-              <a class="collapsible-header waves-effect arrow-r">
-                <i class="w-fa fas fa-table"></i>Công việc<i class="fas fa-angle-down rotate-icon"></i>
-              </a>
-              <div class="collapsible-body">
-                <ul>
-                  <li>
-                    <a href="<?= base_url() ?>task/add" class="waves-effect"><i class="fas fa-plus"></i>Thêm công việc</a>
-                  </li>
-                  <li>
-                    <a href="<?= base_url() ?>task" class="waves-effect"><i class="fas fa-list-ul"></i>Danh sách công việc</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a class="collapsible-header waves-effect arrow-r">
-                <i class="w-fa fas fa-map"></i>Maps<i class="fas fa-angle-down rotate-icon"></i>
-              </a>
-              <div class="collapsible-body">
-                <ul>
-                  <li>
-                    <a href="../maps/google.html" class="waves-effect">Google Maps</a>
-                  </li>
-                  <li>
-                    <a href="../maps/full.html" class="waves-effect">Full screen map</a>
-                  </li>
-                  <li>
-                    <a href="../maps/vector.html" class="waves-effect">Vector world map</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <!-- Simple link -->
-            <li>
-              <a href="../alerts/alerts.html" class="collapsible-header waves-effect"><i class="w-fa far fa-bell"></i>Alerts</a>
-            </li>
-            <li>
-              <a href="../modals/modals.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-bolt"></i>Modals</a>
-            </li>
-            <li>
-              <a href="../charts/charts.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-chart-pie"></i>Charts</a>
-            </li>
-            <li>
-              <a href="../calendar/calendar.html" class="collapsible-header waves-effect"><i class="w-fa far fa-calendar-check"></i>Calendar</a>
-            </li>
-            <li>
-              <a href="../sections/sections.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-th-large"></i>Sections</a>
-            </li>
-
-          </ul>
-        </li>
-        <!-- Side navigation links -->
+      <?php
+        $this->load->view("blocks/navigation");
+      ?>
 
       </ul>
       <div class="sidenav-bg mask-strong"></div>
@@ -185,20 +103,19 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-user"></i> 
-              <span class="clearfix d-none d-sm-inline-block"><?=$this->session->userdata("fullname") ?></span> 
+              <i class="fas fa-user"></i>
+              <span class="clearfix d-none d-sm-inline-block"><?= $this->session->userdata("fullname") ?></span>
               <?php
-                if($this->session->userdata("role") == 1) {
-                  echo '<span class="badge badge-pill badge-danger">Quản trị viên</span>';
-                } 
-                if($this->session->userdata("position") == 1) {
-                  echo '<span class="badge badge-pill badge-danger">Trưởng phòng </span>';
-                }
-                else {
-                  echo '<span class="badge badge-pill badge-success">Nhân viên </span>';
-                }
+              if ($this->session->userdata("role") == 1) {
+                echo '<span class="badge badge-pill badge-danger">Quản trị viên</span>';
+              }
+              if ($this->session->userdata("position") == 1) {
+                echo '<span class="badge badge-pill badge-danger">Trưởng phòng </span>';
+              } else {
+                echo '<span class="badge badge-pill badge-success">Nhân viên </span>';
+              }
               ?>
-              
+
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
               <a class="dropdown-item" href="<?= base_url() ?>logout">Log Out</a>
@@ -373,12 +290,15 @@
       $('.mdb-select').materialSelect();
 
 
-      $('#dtMaterialDesignExample').DataTable(
-        {
-          "responsive": true,
-          "autoWidth": true
-        }
-      );
+      $('#dtMaterialDesignExample').DataTable({
+        "responsive": true,
+        "autoWidth": true
+      });
+
+      // Tooltips Initialization
+      $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
 
     });
   </script>

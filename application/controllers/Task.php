@@ -72,15 +72,18 @@ class Task extends CI_Controller
 
     public function add()
     {
-        $staffOfDepartmentList = $this->user_model->getStaffListByDepartment($this->session->userdata("department"));
-
-        $data = [
-            'pageTitle' => 'Thêm công việc mới',
-            'subview' => 'task/add',
-            'department_staff_list' => $staffOfDepartmentList,
-            'isAdmin' => $this->session->userdata("role") == 1
-        ];
-        $this->load->view("layout1", $data);
+        if (intval($this->session->userdata("role")) == 1 || intval($this->session->userdata("position")) == 1) {
+            $staffOfDepartmentList = $this->user_model->getStaffListByDepartment($this->session->userdata("department"));
+            $data = [
+                'pageTitle' => 'Thêm công việc mới',
+                'subview' => 'task/add',
+                'department_staff_list' => $staffOfDepartmentList,
+                'isAdmin' => $this->session->userdata("role") == 1
+            ];
+            $this->load->view("layout1", $data);
+        } else {
+            show_error(self::STRING_UNAUTHORIZED, 403, self::LABEL_ERROR);
+        }
     }
 
     public function doAddNewTask()
@@ -182,21 +185,9 @@ class Task extends CI_Controller
     public function doEditTask($taskid)
     {
         if ($this->session->userdata("position") != 1) {
-            $rules = [
-                [
-                    'field' => 'task_status',
-                    'label' => 'Trạng thái công việc',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => 'Trạng thái công việc không được rỗng',
-                    ]
-                ]
-            ];
-
-            $this->form_validation->set_rules($rules);
-
-            if (!$this->form_validation->run()) {
-                $this->load->view("task/edit/$taskid");
+            if (is_null($this->input->post("task_status", TRUE))) {
+                $this->session->set_flashdata("message", "Trạng thái công việc không được rỗng");
+                redirect("task/edit/$taskid");
             } else {
                 $data = [
                     'status' => $this->input->post("task_status", TRUE)
@@ -204,7 +195,6 @@ class Task extends CI_Controller
 
                 $this->db->where('id', $taskid);
                 $this->db->update('tasks', $data);
-                // var_dump($this->input->post("task_status", TRUE));
                 redirect("task/detail/$taskid");
             }
         } else {
@@ -273,17 +263,16 @@ class Task extends CI_Controller
         }
     }
 
-    public function delete($taskid) {
+    public function delete($taskid)
+    {
         // Nếu không tìm thấy task với taskid này thì báo lỗi không tìm thấy task
-        if(!$this->task_model->getTaskById($taskid)) {
+        if (!$this->task_model->getTaskById($taskid)) {
             show_error(self::STRING_NOT_FOUND, 404, self::LABEL_ERROR);
-        }
-        else {
-            if(!$this->task_model->deleteTaskWithTaskId($taskid)) {
+        } else {
+            if (!$this->task_model->deleteTaskWithTaskId($taskid)) {
                 show_error(self::STRING_CANNOT_DELETE, 404, self::LABEL_ERROR);
-            }
-            else {
-                $this->session->set_flashdata('message','Đã xóa thành công công việc có <b>Mã công việc: '.$taskid.'</b>');
+            } else {
+                $this->session->set_flashdata('message', 'Đã xóa thành công công việc có <b>Mã công việc: ' . $taskid . '</b>');
                 redirect("task");
             }
         }

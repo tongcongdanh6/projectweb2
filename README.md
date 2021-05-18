@@ -28,22 +28,22 @@
 1 - Thêm thuộc tính <b>fullname</b> trong Session
 
 ### Layout
-<ol>
-    <li>Thay đổi hiển thị trên header bằng fullname thay vì email</li>
-    <li>Thêm badge hiển thị quyền hạn trên header (frontend - FE)</li>
-</ol>
+- Thay đổi hiển thị trên header bằng fullname thay vì email
+- Thêm badge hiển thị quyền hạn trên header (frontend - FE)
+- Sửa danh sách menu (navigation.php) dựa vào quyền
+  - Nhân viên: `KHÔNG` có quyền `thêm` `task` và `nhân viên` mới nên ẨN các menu này đi
 
 ### Module TASK DETAIL
-<ol>
-    <li>Hiển thị nút XÓA CÔNG VIỆC theo quyền (chỉ có admin và trưởng phòng mới có nút này)</li>
-    <li>Thêm "người được giao" trong task detail (FE)</li>
-</ol>
+- Hiển thị nút XÓA CÔNG VIỆC theo quyền (chỉ có admin và trưởng phòng mới có nút này)
+- Thêm "người được giao" trong task detail (FE)
+
 
 ### Module TASK
 - Thêm chức năng: `SỬA`
   - `Admin`: Được chỉnh sửa Tất cả Field + Tất cả phòng ban
   - `Trưởng phòng`: Chỉnh sửa Tất cả Field + Chỉ phòng ban do người đó quản lý
   - `Nhân viên`: Chỉ được chỉnh sửa Trạng thái công việc
+    - Chỉ có 2 trạng thái công việc được chỉnh sửa là `Đang thực hiện + Đã hoàn thành`
 
 - Thêm chức năng: `XÓA`
   - `Admin`: Xóa được hết tất cả task các phòng ban

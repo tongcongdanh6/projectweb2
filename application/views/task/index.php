@@ -57,7 +57,12 @@
                                                 <td><?= $s['creator_fullname'] ?></td>
                                                 <td><?= $s['handler_fullname'] ?></td>
                                                 <td>
-                                                    <a href="<?= base_url() ?>task/detail/<?= $s['id'] ?>" class="btn btn-primary btn-sm"><?= $s['title'] ?></a>
+                                                    <a href="<?= base_url() ?>task/detail/<?= $s['id'] ?>" 
+                                                    class="btn btn-primary btn-sm" 
+                                                    data-toggle="tooltip" 
+                                                    data-placement="top" 
+                                                    title="" 
+                                                    data-original-title="Click vào để xem chi tiết công việc"><?= $s['title'] ?></a>
                                                 </td>
                                                 <td><?= word_limiter($s['content'], 9) ?></td>
                                                 <td><?= date("d-m-Y H:i:s", strtotime($s['created_at'])) ?></td>
