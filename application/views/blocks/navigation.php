@@ -52,7 +52,7 @@
                 </li>
                 <li>
                     <a class="collapsible-header waves-effect arrow-r">
-                        <i class="w-fa fas fa-map"></i>Maps<i class="fas fa-angle-down rotate-icon"></i>
+                        <i class="w-fa fas fa-table"></i>Phòng ban<i class="fas fa-angle-down rotate-icon"></i>
                     </a>
                     <div class="collapsible-body">
                         <ul>
