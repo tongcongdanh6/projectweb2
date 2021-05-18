@@ -3,6 +3,7 @@ class Task extends CI_Controller
 {
     const STRING_NOT_FOUND = "Không tìm thấy công việc này";
     const STRING_UNAUTHORIZED = "Không có quyền thực hiện thao tác này";
+    const STRING_CANNOT_DELETE = "Không thể xóa thành công dữ liệu này";
     const LABEL_ERROR = "Có lỗi xảy ra";
 
     public function __construct()
@@ -56,7 +57,10 @@ class Task extends CI_Controller
             show_error(self::STRING_NOT_FOUND, 404, self::LABEL_ERROR);
         }
 
-        // Nếu task có tồn tại 
+        // Nếu task có tồn tại
+        // Thêm attr "handler_fullname" vào $task_data để hiển thị ra bên ngoài frontend
+        $task_data[0]["handler_fullname"] = $this->user_model->getFullNameByUserId(intval($task_data[0]['handler']));
+
         $data = [
             'pageTitle' => 'Chi tiết công việc',
             'subview' => 'task/detail',
@@ -265,6 +269,22 @@ class Task extends CI_Controller
                 $this->db->update('tasks', $data);
                 // var_dump($this->input->post("task_status", TRUE));
                 redirect("task/detail/$taskid");
+            }
+        }
+    }
+
+    public function delete($taskid) {
+        // Nếu không tìm thấy task với taskid này thì báo lỗi không tìm thấy task
+        if(!$this->task_model->getTaskById($taskid)) {
+            show_error(self::STRING_NOT_FOUND, 404, self::LABEL_ERROR);
+        }
+        else {
+            if(!$this->task_model->deleteTaskWithTaskId($taskid)) {
+                show_error(self::STRING_CANNOT_DELETE, 404, self::LABEL_ERROR);
+            }
+            else {
+                $this->session->set_flashdata('message','Đã xóa thành công công việc có <b>Mã công việc: '.$taskid.'</b>');
+                redirect("task");
             }
         }
     }

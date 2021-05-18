@@ -48,6 +48,14 @@ class User_model extends CI_Model {
         return $query->row_array()['fullname'];
     }
     
+    public function getFullNameByUserId($uid) {
+        if(!$uid) return 0;
+
+        $query = $this->db->select("fullname")->from("users")->where("id", $uid)->get();
+
+        return $query->row_array()['fullname'];
+    }
+    
     public function getListStaffExceptUserId($uid) {
         if(!$uid) return "";
 

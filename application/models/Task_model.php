@@ -12,7 +12,12 @@ class Task_model extends CI_Model {
         
         $this->db->insert("tasks",$taskdata);
         return true;
-    } 
+    }
+    
+    public function deleteTaskWithTaskId($tid) {
+        // Nếu không có $tid trong table thì hàm return false
+        return $this->db->delete("tasks", ['id' => $tid]);
+    }
 
     public function getAllTasks() {
         /*
@@ -91,7 +96,7 @@ class Task_model extends CI_Model {
 
     public function getTaskById($task_id = NULL) {
         if(!$task_id) {
-            return [];
+            return null;
         }
 
         $query = $this->db->select("*")->from('tasks')->where("id",$task_id)->get();

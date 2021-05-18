@@ -81,6 +81,7 @@ if ($isAuthorized == true) {
                             }
                             ?>
                         </p>
+                        <p class="card-text pb-2">Người được giao: <b><?=$task_data[0]['handler_fullname']?></b></p>
                         <p class="card-text pb-2">Deadline:
                         <b><?=date("d-m-Y H:i:s",strtotime($task_data[0]['deadline']))?></b>
                         </p>
