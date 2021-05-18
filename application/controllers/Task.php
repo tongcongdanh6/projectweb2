@@ -191,10 +191,9 @@ class Task extends CI_Controller
 
             $this->form_validation->set_rules($rules);
 
-            if(!$this->form_validation->run()) {
+            if (!$this->form_validation->run()) {
                 $this->load->view("task/edit/$taskid");
-            }
-            else {
+            } else {
                 $data = [
                     'status' => $this->input->post("task_status", TRUE)
                 ];
@@ -204,42 +203,69 @@ class Task extends CI_Controller
                 // var_dump($this->input->post("task_status", TRUE));
                 redirect("task/detail/$taskid");
             }
-        }
-        // Kiểm tra thông tin nhập
-        $rules = [
-            [
-                'field' => 'task_title',
-                'label' => 'Tiêu đề công việc',
-                'rules' => 'trim|required',
-                'errors' => [
-                    'required' => 'Tiêu đề công việc không được rỗng',
+        } else {
+            // Kiểm tra thông tin nhập
+            $rules = [
+                [
+                    'field' => 'task_title',
+                    'label' => 'Tiêu đề công việc',
+                    'rules' => 'trim|required',
+                    'errors' => [
+                        'required' => 'Tiêu đề công việc không được rỗng',
+                    ]
+                ],
+                [
+                    'field' => 'task_handler',
+                    'label' => 'Người được giao',
+                    'rules' => 'trim|required',
+                    'errors' => [
+                        'required' => 'Người được giao không được rỗng',
+                    ]
+                ],
+                [
+                    'field' => 'task_content',
+                    'label' => 'Nội dung công việc',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Nội dung công việc không được rỗng'
+                    ]
+                ],
+                [
+                    'field' => 'task_deadline',
+                    'label' => 'Deadline công việc',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Deadline công việc không được rỗng'
+                    ]
+                ],
+                [
+                    'field' => 'task_status',
+                    'label' => 'Trạng thái công việc',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Trạng thái công việc không được rỗng'
+                    ]
                 ]
-            ],
-            [
-                'field' => 'task_handler',
-                'label' => 'Người được giao',
-                'rules' => 'trim|required',
-                'errors' => [
-                    'required' => 'Người được giao không được rỗng',
-                ]
-            ],
-            [
-                'field' => 'task_content',
-                'label' => 'Nội dung công việc',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Nội dung công việc không được rỗng'
-                ]
-            ],
-            [
-                'field' => 'task_deadline',
-                'label' => 'Deadline công việc',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Deadline công việc không được rỗng'
-                ]
-            ]
+            ];
 
-        ];
+            $this->form_validation->set_rules($rules);
+
+            if (!$this->form_validation->run()) {
+                $this->load->view("task/edit/$taskid");
+            } else {
+                $data = [
+                    'title' => $this->input->post("task_title", TRUE),
+                    'status' => $this->input->post("task_status", TRUE),
+                    'handler' => $this->input->post("task_handler", TRUE),
+                    'content' => $this->input->post("task_content", TRUE),
+                    'deadline' => date("Y-m-d H:i:s", strtotime($this->input->post("task_deadline", TRUE)))
+                ];
+
+                $this->db->where('id', $taskid);
+                $this->db->update('tasks', $data);
+                // var_dump($this->input->post("task_status", TRUE));
+                redirect("task/detail/$taskid");
+            }
+        }
     }
 }

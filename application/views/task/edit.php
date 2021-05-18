@@ -15,6 +15,7 @@ if ($isAuthorized == true) {
 ?>
 
     <section class="my-5">
+    <?=validation_errors('<div class="alert alert-warning">','</div>')?>
         <form method="post" action="<?=base_url()?>task/doEditTask/<?=$task_data[0]['id']?>">
         <div class="row">
 

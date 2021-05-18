@@ -94,7 +94,11 @@ if ($isAuthorized == true) {
                         <!-- Email -->
                         <a class="p-2 m-2 fa-lg email-ic"><i class="fas fa-envelope"> </i></a>
                         <a class="btn btn-primary btn-rounded waves-effect waves-light" href="<?=base_url()?>task/edit/<?=$task_data[0]['id']?>">Chỉnh sửa công việc này</a>
-                        <a data-toggle="modal" data-target="#confirmDeleteTask" class="btn btn-danger">Xóa công việc này!!!</a>
+                        <?php
+                        if($this->session->userdata("role") == 1 || $this->session->userdata("position") == 1) {
+                            echo '<a data-toggle="modal" data-target="#confirmDeleteTask" class="btn btn-danger">Xóa công việc này!!!</a>';
+                        }
+                        ?>
                         
                     </div>
                     <!-- Card content -->
