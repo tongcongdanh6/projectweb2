@@ -15,6 +15,16 @@ class Task extends CI_Controller
         $this->load->helper("text");
         $this->load->model("task_model");
         $this->load->model("user_model");
+        $this->load->model("notification_model");
+
+        // NOTIFICATION 
+        $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
+        $count_unread = 0;
+        foreach ($data['notification_data'] as $n) {
+            if ($n["mark_read"] == 0) $count_unread++;
+        }
+        $data['count_unread_notification'] = $count_unread;
+        // NOTIFICATION 
     }
 
     public function index()
@@ -35,6 +45,7 @@ class Task extends CI_Controller
             'subview' => 'task/index',
             'tasks_data' => $tasks_data
         ];
+        var_dump($data);
         $this->load->view("layout1", $data);
     }
 

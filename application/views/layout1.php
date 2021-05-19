@@ -40,9 +40,9 @@
           </form>
         </li>
 
-      <?php
+        <?php
         $this->load->view("blocks/navigation");
-      ?>
+        ?>
 
       </ul>
       <div class="sidenav-bg mask-strong"></div>
@@ -59,7 +59,7 @@
 
       <!-- Breadcrumb -->
       <div class="breadcrumb-dn mr-auto">
-        <p>Dashboard v.1</p>
+        <p>Chương trình quản lý công việc</p>
       </div>
 
       <div class="d-flex change-mode">
@@ -74,32 +74,26 @@
           <!-- Dropdown -->
           <li class="nav-item dropdown notifications-nav">
             <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="badge red">3</span> <i class="fas fa-bell"></i>
-              <span class="d-none d-md-inline-block">Notifications</span>
+              <span class="badge red"><?= $count_unread_notification ?></span> <i class="fas fa-bell"></i>
+              <span class="d-none d-md-inline-block">Thông báo</span>
             </a>
             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">
-                <i class="far fa-money-bill-alt mr-2" aria-hidden="true"></i>
-                <span>New order received</span>
-                <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 13 min</span>
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="far fa-money-bill-alt mr-2" aria-hidden="true"></i>
-                <span>New order received</span>
-                <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 33 min</span>
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
-                <span>Your campaign is about to end</span>
-                <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 53 min</span>
-              </a>
+              <?php
+              foreach ($notification_data as $n) {
+              ?>
+                <a class="dropdown-item" href="<?=base_url()?>task/detail/<?=$n['taskid']?>">
+                  <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
+                  <span><?=$n["content"]?></span>
+                  <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i>
+                    <?php 
+                      echo date("Y-m-d H:i:s", strtotime($n["created_at"]));
+                    ?>
+                  </span>
+                </a>
+              <?php
+              }
+              ?>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect"><i class="fas fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect"><i class="far fa-comments"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -118,8 +112,8 @@
 
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="<?= base_url() ?>logout">Log Out</a>
-              <a class="dropdown-item" href="#">My account</a>
+              <a class="dropdown-item" href="<?= base_url() ?>logout">Đăng xuất</a>
+
             </div>
           </li>
 

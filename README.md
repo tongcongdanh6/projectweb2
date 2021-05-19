@@ -9,6 +9,8 @@
     - [Layout](#layout)
     - [Module TASK DETAIL](#module-task-detail)
     - [Module TASK](#module-task-1)
+  - [1:28 AM 5/20/2021](#128-am-5202021)
+    - [Module NOTIFICATION](#module-notification)
 
 # CHANGE LOG
 ## 15/05/2021 20:00
@@ -49,3 +51,8 @@
   - `Admin`: Xóa được hết tất cả task các phòng ban
   - `Trưởng phòng`: Xóa được task của phòng ban đó
   - `Nhân viên`: Không được xóa
+
+## 1:28 AM 5/20/2021
+### Module NOTIFICATION
+- Chỉnh sửa cấu trúc Database
+- Thêm nó vào trên thanh navigation
