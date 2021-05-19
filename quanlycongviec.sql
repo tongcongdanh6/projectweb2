@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2021 at 04:13 PM
+-- Generation Time: May 19, 2021 at 08:30 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -44,6 +44,30 @@ INSERT INTO `department` (`id`, `slug`, `name`) VALUES
 (2, 'phong-it', 'Phòng IT'),
 (3, 'phong-nhan-su', 'Phòng nhân sự'),
 (4, 'phong-ke-toan', 'Phòng kế toán');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(10) NOT NULL,
+  `type_notification` int(1) NOT NULL,
+  `belong_uid` int(10) NOT NULL,
+  `taskid` int(10) NOT NULL,
+  `content` varchar(500) NOT NULL,
+  `mark_read` int(1) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `type_notification`, `belong_uid`, `taskid`, `content`, `mark_read`, `created_at`) VALUES
+(1, 1, 4, 4, 'Bạn vừa được giao job', 0, '2021-05-20 00:49:29'),
+(2, 4, 4, 4, 'Complete the job', 0, '2021-05-20 01:04:00');
 
 -- --------------------------------------------------------
 
@@ -95,7 +119,7 @@ INSERT INTO `tasks` (`id`, `creator`, `handler`, `title`, `slug`, `content`, `st
 (3, 6, 7, 'Kinh doanh task 1', 'kinh-doanh-task-1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 2, '2021-05-18 17:15:59', '2021-05-05 21:03:31', 0),
 (4, 9, 4, 'Phòng nhân sự task 1', 'phong-nhan-su-task-1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 1, '2021-05-17 17:16:02', '2021-05-05 21:16:53', 0),
 (5, 9, 10, 'Phòng nhân sự task 10', 'Phòng-nhân-sự-task-2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate. Hello?', 2, '2021-05-26 18:16:02', '2021-05-12 12:23:22', 0),
-(6, 9, 4, 'Nhân sự task 3', 'Nhân-sự-task-3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 1, '2021-05-17 17:16:02', '2021-05-12 01:22:21', 0),
+(6, 9, 4, 'Nhân sự task 3', 'Nhân-sự-task-3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 2, '2021-05-17 17:16:02', '2021-05-12 01:22:21', 0),
 (7, 9, 10, 'Nhân sự task 4', 'nhan-su-task-4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 2, '2021-05-27 10:35:00', '2021-05-12 01:34:28', 0),
 (8, 3, 8, 'IT Task 2', 'it-task-2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 2, '2021-05-26 08:38:00', '2021-05-12 01:37:17', 0),
 (9, 3, 11, 'IT Task 3', 'it-task-3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 2, '2021-05-27 06:57:00', '2021-05-12 01:57:20', 0),
@@ -145,6 +169,12 @@ ALTER TABLE `department`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `position`
 --
 ALTER TABLE `position`
@@ -171,6 +201,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `department`
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `position`
