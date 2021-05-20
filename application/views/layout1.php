@@ -74,25 +74,62 @@
           <!-- Dropdown -->
           <li class="nav-item dropdown notifications-nav">
             <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="badge red"><?= $count_unread_notification ?></span> <i class="fas fa-bell"></i>
+              <?php if ($count_unread_notification > 0) {
+              ?>
+                <span class="badge red"><?= $count_unread_notification ?></span> <i class="fas fa-bell"></i>
+              <?php
+              }
+              ?>
               <span class="d-none d-md-inline-block">Thông báo</span>
             </a>
             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
               <?php
               foreach ($notification_data as $n) {
               ?>
-                <a class="dropdown-item" href="<?=base_url()?>task/detail/<?=$n['taskid']?>">
-                  <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
-                  <span><?=$n["content"]?></span>
-                  <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i>
-                    <?php 
-                      echo date("Y-m-d H:i:s", strtotime($n["created_at"]));
+                <?php
+                if ($n['mark_read'] == 0) {
+                  switch ($n['type_notification']) {
+                    case 1:
+                      $style_css_noti = "alert-primary";
+                      break;
+                    case 2:
+                      $style_css_noti = "alert-warning";
+                      break;
+                    case 3:
+                      $style_css_noti = "alert-danger";
+                      break;
+                    case 4:
+                      $style_css_noti = "alert-success";
+                      break;
+                    default:
+                      $style_css_noti = "alert-primary";
+                      break;
+                  }
+                ?>
+                  <a class="dropdown-item <?= $style_css_noti ?> m-0" href="<?= base_url() ?>task/detail/<?= $n['taskid'] ?>/?noti_id=<?= $n['id'] ?>">
+                  <?php
+                } else {
+                  ?>
+                    <a class="dropdown-item m-0" href="<?= base_url() ?>task/detail/<?= $n['taskid'] ?>/?noti_id=<?= $n['id'] ?>">
+                    <?php
+                  }
                     ?>
-                  </span>
-                </a>
-              <?php
-              }
-              ?>
+
+                    <?php if ($n['mark_read'] == 0) { ?><b><?php } ?>
+                      <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
+                      <span>
+                        <?= $n["content"] ?>
+                      </span>
+                      <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i>
+                        <?php
+                        echo date("Y-m-d H:i:s", strtotime($n["created_at"]));
+                        ?>
+                      </span>
+                      <?php if ($n['mark_read'] == 0) { ?></b><?php } ?>
+                    </a>
+                  <?php
+                }
+                  ?>
             </div>
           </li>
           <li class="nav-item dropdown">

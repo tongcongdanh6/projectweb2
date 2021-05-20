@@ -11,6 +11,8 @@
     - [Module TASK](#module-task-1)
   - [1:28 AM 5/20/2021](#128-am-5202021)
     - [Module NOTIFICATION](#module-notification)
+  - [12:27 5/20/2021](#1227-5202021)
+    - [Module NOTIFICATION](#module-notification-1)
 
 # CHANGE LOG
 ## 15/05/2021 20:00
@@ -56,3 +58,7 @@
 ### Module NOTIFICATION
 - Chỉnh sửa cấu trúc Database
 - Thêm nó vào trên thanh navigation
+
+## 12:27 5/20/2021
+### Module NOTIFICATION
+- Hoàn thành việc đếm noti, mark là đã đọc, phân loại noti

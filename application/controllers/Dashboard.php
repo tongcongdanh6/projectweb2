@@ -14,12 +14,14 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
+        // NOTIFICATION
         $notification_list = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
         $count_unread = 0;
         foreach($notification_list as $n) {
             if($n["mark_read"] == 0) $count_unread++;
         }
-        // var_dump($notification_list);
+
+        
 
         // Bảng quản trị cho ADMIN
         if(intval($this->session->userdata("role")) === 1) {

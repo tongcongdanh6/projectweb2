@@ -16,19 +16,11 @@ class Task extends CI_Controller
         $this->load->model("task_model");
         $this->load->model("user_model");
         $this->load->model("notification_model");
-
-        // NOTIFICATION 
-        $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
-        $count_unread = 0;
-        foreach ($data['notification_data'] as $n) {
-            if ($n["mark_read"] == 0) $count_unread++;
-        }
-        $data['count_unread_notification'] = $count_unread;
-        // NOTIFICATION 
     }
 
     public function index()
     {
+
         if (intval($this->session->userdata("role")) == 1) {
             // Nếu là admin thì lấy full danh sách task
             $tasks_data = $this->task_model->getAllTasks();
@@ -40,12 +32,33 @@ class Task extends CI_Controller
                 $tasks_data = $this->task_model->getTasksByIdHandlerToTable($this->session->userdata("id"));
             }
         }
+
         $data = [
             'pageTitle' => 'Danh sách công việc',
             'subview' => 'task/index',
             'tasks_data' => $tasks_data
         ];
-        var_dump($data);
+
+        // NOTIFICATION 
+        $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
+        $count_unread = 0;
+        foreach ($data['notification_data'] as $n) {
+            if ($n["mark_read"] == 0) $count_unread++;
+        }
+        $data['count_unread_notification'] = $count_unread;
+
+        // Nếu request có chứa query noti_id thì thực hiện mark đã đọc
+        if (isset($_GET["noti_id"])) {
+            // Trước khi set mark là đã đọc thì check xem noti này có thuộc về user này không?
+            // var_dump($this->notification_model->isNotificationBelongCurrentUserWithNotiId($_GET["noti_id"]));
+            if ($this->notification_model->isNotificationBelongCurrentUserWithNotiId($_GET["noti_id"])) {
+                // Nếu TRUE thì set đã đọc cho noti_id này
+                $this->notification_model->markReadNotification($_GET["noti_id"]);
+            }
+        }
+
+        // NOTIFICATION
+
         $this->load->view("layout1", $data);
     }
 
@@ -72,12 +85,34 @@ class Task extends CI_Controller
         // Thêm attr "handler_fullname" vào $task_data để hiển thị ra bên ngoài frontend
         $task_data[0]["handler_fullname"] = $this->user_model->getFullNameByUserId(intval($task_data[0]['handler']));
 
+        // NOTIFICATION 
+        // Nếu request có chứa query noti_id thì thực hiện mark đã đọc
+        if (isset($_GET["noti_id"])) {
+            // Trước khi set mark là đã đọc thì check xem noti này có thuộc về user này không?
+            if ($this->notification_model->isNotificationBelongCurrentUserWithNotiId($_GET["noti_id"])) {
+                // Nếu TRUE thì set mark read
+                $this->notification_model->markReadNotification($_GET["noti_id"]);
+                redirect("task/detail/".$taskid);
+            }
+        }
+        // ##NOTIFICATION##
+
         $data = [
             'pageTitle' => 'Chi tiết công việc',
             'subview' => 'task/detail',
             'task_data' => $task_data,
             'isAuthorized' => $this->checkAuthorizedByTaskId($taskid) // Kiểm tra quyền truy cập vào detail dựa vào quyền phòng ban
         ];
+
+        // NOTIFICATION DATA
+        $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
+        $count_unread = 0;
+        foreach ($data['notification_data'] as $n) {
+            if ($n["mark_read"] == 0) $count_unread++;
+        }
+        $data['count_unread_notification'] = $count_unread;
+        // #NOTIFICATION DATA
+
         $this->load->view("layout1", $data);
     }
 

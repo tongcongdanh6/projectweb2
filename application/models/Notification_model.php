@@ -11,4 +11,21 @@ class Notification_model extends CI_Model
 
         return $query->result_array();
     }
+    
+    public function isNotificationBelongCurrentUserWithNotiId($nid) {
+        $query = $this->db->select("*")
+        ->from("notification")
+        ->where("id", $nid)
+        ->where("belong_uid", $this->session->userdata("id"));
+
+        return $query->count_all_results() == 1;
+    }
+
+    public function markReadNotification($nid) {
+        if(!$nid) return;
+        
+        $this->db->where('id', $nid);
+        $this->db->update('notification', ["mark_read" => 1]);
+        return true;
+    }
 }
