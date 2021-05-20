@@ -28,4 +28,12 @@ class Notification_model extends CI_Model
         $this->db->update('notification', ["mark_read" => 1]);
         return true;
     }
+
+    public function addNotification($data) {
+        if(!$data) {
+            return false;
+        }
+        
+        return $this->db->insert("notification", $data);
+    }
 }

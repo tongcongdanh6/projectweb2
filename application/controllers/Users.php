@@ -10,6 +10,7 @@ class Users extends CI_Controller
         $this->load->model("department_model");
         $this->load->model("user_model");
         $this->load->model("register_model");
+        $this->load->model("notification_model");
 
         if (intval($this->session->userdata("role")) !== 1) {
             redirect("dashboard");
@@ -35,6 +36,16 @@ class Users extends CI_Controller
             'subview' => 'users/index',
             'staffList' =>  $staff_list
         ];
+
+        // NOTIFICATION DATA
+        $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
+        $count_unread = 0;
+        foreach ($data['notification_data'] as $n) {
+            if ($n["mark_read"] == 0) $count_unread++;
+        }
+        $data['count_unread_notification'] = $count_unread;
+        // #NOTIFICATION DATA
+
         $this->load->view("layout1", $data);
     }
 
@@ -45,6 +56,16 @@ class Users extends CI_Controller
             'subview' => 'users/add',
             'department_list' => $this->department_model->getListDepartment()
         ];
+        
+        // NOTIFICATION DATA
+        $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
+        $count_unread = 0;
+        foreach ($data['notification_data'] as $n) {
+            if ($n["mark_read"] == 0) $count_unread++;
+        }
+        $data['count_unread_notification'] = $count_unread;
+        // #NOTIFICATION DATA
+
         $this->load->view("layout1", $data);
     }
 

@@ -92,7 +92,7 @@ class Task extends CI_Controller
             if ($this->notification_model->isNotificationBelongCurrentUserWithNotiId($_GET["noti_id"])) {
                 // Nếu TRUE thì set mark read
                 $this->notification_model->markReadNotification($_GET["noti_id"]);
-                redirect("task/detail/".$taskid);
+                redirect("task/detail/" . $taskid);
             }
         }
         // ##NOTIFICATION##
@@ -118,6 +118,7 @@ class Task extends CI_Controller
 
     public function add()
     {
+
         if (intval($this->session->userdata("role")) == 1 || intval($this->session->userdata("position")) == 1) {
             $staffOfDepartmentList = $this->user_model->getStaffListByDepartment($this->session->userdata("department"));
             $data = [
@@ -126,6 +127,16 @@ class Task extends CI_Controller
                 'department_staff_list' => $staffOfDepartmentList,
                 'isAdmin' => $this->session->userdata("role") == 1
             ];
+
+            // NOTIFICATION DATA
+            $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
+            $count_unread = 0;
+            foreach ($data['notification_data'] as $n) {
+                if ($n["mark_read"] == 0) $count_unread++;
+            }
+            $data['count_unread_notification'] = $count_unread;
+            // #NOTIFICATION DATA
+
             $this->load->view("layout1", $data);
         } else {
             show_error(self::STRING_UNAUTHORIZED, 403, self::LABEL_ERROR);
@@ -134,62 +145,74 @@ class Task extends CI_Controller
 
     public function doAddNewTask()
     {
-        // Kiểm tra thông tin nhập
-        $rules = [
-            [
-                'field' => 'task_title',
-                'label' => 'Tiêu đề công việc',
-                'rules' => 'trim|required',
-                'errors' => [
-                    'required' => 'Tiêu đề công việc không được rỗng',
-                ]
-            ],
-            [
-                'field' => 'task_handler',
-                'label' => 'Người được giao',
-                'rules' => 'trim|required',
-                'errors' => [
-                    'required' => 'Người được giao không được rỗng',
-                ]
-            ],
-            [
-                'field' => 'task_content',
-                'label' => 'Nội dung công việc',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Nội dung công việc không được rỗng'
-                ]
-            ],
-            [
-                'field' => 'task_deadline',
-                'label' => 'Deadline công việc',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Deadline công việc không được rỗng'
-                ]
-            ]
-
-        ];
-
-        $this->form_validation->set_rules($rules);
-
-        if (!$this->form_validation->run()) {
-            $this->add();
+        if (!isset($_SERVER["HTTP_REFERER"]) || (isset($_SERVER["HTTP_REFERER"])) && ($_SERVER["HTTP_REFERER"] != base_url() . "task/add")) {
+            show_error("Không được thực hiện thao tác này", 403, "Có lỗi xảy ra");
         } else {
+            // Kiểm tra thông tin nhập
+            $rules = [
+                [
+                    'field' => 'task_title',
+                    'label' => 'Tiêu đề công việc',
+                    'rules' => 'trim|required',
+                    'errors' => [
+                        'required' => 'Tiêu đề công việc không được rỗng',
+                    ]
+                ],
+                [
+                    'field' => 'task_handler',
+                    'label' => 'Người được giao',
+                    'rules' => 'trim|required',
+                    'errors' => [
+                        'required' => 'Người được giao không được rỗng',
+                    ]
+                ],
+                [
+                    'field' => 'task_content',
+                    'label' => 'Nội dung công việc',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Nội dung công việc không được rỗng'
+                    ]
+                ],
+                [
+                    'field' => 'task_deadline',
+                    'label' => 'Deadline công việc',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Deadline công việc không được rỗng'
+                    ]
+                ]
 
-            $data = [
-                'creator' => $this->user_model->getUserIdByEmail($this->session->userdata("email")),
-                'handler' => intval($this->input->post("task_handler", TRUE)),
-                'title' => $this->input->post("task_title", TRUE),
-                'slug' => url_title(convert_accented_characters($this->input->post("task_title", TRUE)), 'dash', true),
-                'content' => $this->input->post("task_content", TRUE),
-                'deadline' => date("Y-m-d H:i:s", strtotime($this->input->post("task_deadline", TRUE))),
-                'created_at' => date("Y-m-d H:i:s")
             ];
 
-            if ($this->task_model->addNewTask($data)) {
-                // $this->load->view("addtask_successfully");
-                redirect("task");
+            $this->form_validation->set_rules($rules);
+
+            if (!$this->form_validation->run()) {
+                $this->add();
+            } else {
+
+                $data = [
+                    'creator' => $this->user_model->getUserIdByEmail($this->session->userdata("email")),
+                    'handler' => intval($this->input->post("task_handler", TRUE)),
+                    'title' => $this->input->post("task_title", TRUE),
+                    'slug' => url_title(convert_accented_characters($this->input->post("task_title", TRUE)), 'dash', true),
+                    'content' => $this->input->post("task_content", TRUE),
+                    'deadline' => date("Y-m-d H:i:s", strtotime($this->input->post("task_deadline", TRUE))),
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
+
+                if ($tid = $this->task_model->addNewTask($data)) {
+                    // ADD TASK Thành công thì thêm vào bảng notification ở DB
+                    $data_noti = [
+                        'belong_uid' => intval($this->input->post("task_handler", TRUE)),
+                        'taskid' => $tid,
+                        'content' => $this->input->post("task_title", TRUE),
+                        'created_at' => date("Y-m-d H:i:s")
+                    ];
+                    
+                    $this->notification_model->addNotification($data_noti);
+                    redirect("task");
+                }
             }
         }
     }

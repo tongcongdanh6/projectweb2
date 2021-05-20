@@ -9,9 +9,10 @@ class Task_model extends CI_Model {
         if(!$taskdata) {
             return false;
         }
-        
-        $this->db->insert("tasks",$taskdata);
-        return true;
+        $this->db->insert("tasks", $taskdata);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+        // return true;
     }
     
     public function deleteTaskWithTaskId($tid) {

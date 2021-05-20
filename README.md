@@ -13,6 +13,8 @@
     - [Module NOTIFICATION](#module-notification)
   - [12:27 5/20/2021](#1227-5202021)
     - [Module NOTIFICATION](#module-notification-1)
+  - [21:47 5/20/2021](#2147-5202021)
+    - [Module NOTIFICATION](#module-notification-2)
 
 # CHANGE LOG
 ## 15/05/2021 20:00
@@ -62,3 +64,7 @@
 ## 12:27 5/20/2021
 ### Module NOTIFICATION
 - Hoàn thành việc đếm noti, mark là đã đọc, phân loại noti
+
+## 21:47 5/20/2021
+### Module NOTIFICATION
+- Hoàn thành việc thêm Task mới là thông báo noti cho nhân viên

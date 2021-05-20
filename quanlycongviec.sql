@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2021 at 07:30 AM
+-- Generation Time: May 20, 2021 at 04:48 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -68,7 +68,10 @@ CREATE TABLE `notification` (
 INSERT INTO `notification` (`id`, `type_notification`, `belong_uid`, `taskid`, `content`, `mark_read`, `created_at`) VALUES
 (1, 1, 4, 4, 'Bạn vừa được giao job', 1, '2021-05-20 00:49:29'),
 (2, 4, 4, 4, 'Complete the job', 1, '2021-05-20 01:04:00'),
-(3, 1, 4, 6, 'Test noti', 1, '2021-05-20 12:25:09');
+(3, 1, 4, 6, 'Test noti', 1, '2021-05-20 12:25:09'),
+(4, 1, 4, 14, 'Test noti nhân sự 1', 1, '2021-05-20 16:35:54'),
+(6, 1, 4, 16, 'Test noti nhân sự 2', 1, '2021-05-20 16:44:39'),
+(7, 1, 4, 17, 'Test noti nhân sự 3', 1, '2021-05-20 16:47:19');
 
 -- --------------------------------------------------------
 
@@ -125,7 +128,9 @@ INSERT INTO `tasks` (`id`, `creator`, `handler`, `title`, `slug`, `content`, `st
 (8, 3, 8, 'IT Task 2', 'it-task-2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 2, '2021-05-26 08:38:00', '2021-05-12 01:37:17', 0),
 (9, 3, 11, 'IT Task 3', 'it-task-3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 2, '2021-05-27 06:57:00', '2021-05-12 01:57:20', 0),
 (10, 3, 11, 'IT Task 4', 'it-task-4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 1, '2021-05-24 10:06:00', '2021-05-12 02:06:28', 0),
-(12, 0, 0, '', '', '', 2, NULL, '0000-00-00 00:00:00', 0);
+(13, 9, 4, 'Test noti nhân sự 1', 'test-noti-nhan-su-1', 'Test noti nhân sự 1', 1, '2021-05-20 21:35:00', '2021-05-20 16:35:12', 0),
+(16, 9, 4, 'Test noti nhân sự 2', 'test-noti-nhan-su-2', 'Test noti nhân sự 2', 1, '2021-05-20 21:44:00', '2021-05-20 16:44:39', 0),
+(17, 9, 4, 'Test noti nhân sự 3', 'test-noti-nhan-su-3', 'Test noti nhân sự 3', 1, '2021-05-20 21:47:00', '2021-05-20 16:47:19', 0);
 
 -- --------------------------------------------------------
 
@@ -207,7 +212,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `position`
@@ -219,7 +224,7 @@ ALTER TABLE `position`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
