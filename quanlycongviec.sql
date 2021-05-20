@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2021 at 08:30 PM
+-- Generation Time: May 20, 2021 at 07:30 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -53,11 +53,11 @@ INSERT INTO `department` (`id`, `slug`, `name`) VALUES
 
 CREATE TABLE `notification` (
   `id` int(10) NOT NULL,
-  `type_notification` int(1) NOT NULL,
+  `type_notification` int(1) NOT NULL DEFAULT 1,
   `belong_uid` int(10) NOT NULL,
   `taskid` int(10) NOT NULL,
   `content` varchar(500) NOT NULL,
-  `mark_read` int(1) NOT NULL,
+  `mark_read` int(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -66,8 +66,9 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `type_notification`, `belong_uid`, `taskid`, `content`, `mark_read`, `created_at`) VALUES
-(1, 1, 4, 4, 'Bạn vừa được giao job', 0, '2021-05-20 00:49:29'),
-(2, 4, 4, 4, 'Complete the job', 0, '2021-05-20 01:04:00');
+(1, 1, 4, 4, 'Bạn vừa được giao job', 1, '2021-05-20 00:49:29'),
+(2, 4, 4, 4, 'Complete the job', 1, '2021-05-20 01:04:00'),
+(3, 1, 4, 6, 'Test noti', 1, '2021-05-20 12:25:09');
 
 -- --------------------------------------------------------
 
@@ -206,7 +207,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `position`
