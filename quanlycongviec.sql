@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2021 at 04:48 PM
+-- Generation Time: May 21, 2021 at 02:32 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -71,7 +71,14 @@ INSERT INTO `notification` (`id`, `type_notification`, `belong_uid`, `taskid`, `
 (3, 1, 4, 6, 'Test noti', 1, '2021-05-20 12:25:09'),
 (4, 1, 4, 14, 'Test noti nhân sự 1', 1, '2021-05-20 16:35:54'),
 (6, 1, 4, 16, 'Test noti nhân sự 2', 1, '2021-05-20 16:44:39'),
-(7, 1, 4, 17, 'Test noti nhân sự 3', 1, '2021-05-20 16:47:19');
+(7, 1, 4, 17, 'Test noti nhân sự 3', 1, '2021-05-20 16:47:19'),
+(8, 1, 4, 18, 'Test noti nhân sự 4', 1, '2021-05-21 09:17:53'),
+(9, 1, 4, 19, 'Test noti nhân sự 5', 1, '2021-05-21 11:57:56'),
+(12, 4, 9, 19, 'NV Nhân sự 1 đã hoàn thành Test noti nhân sự 5', 1, '2021-05-21 14:24:18'),
+(13, 2, 9, 19, 'NV Nhân sự 1 đang thực hiện Test noti nhân sự 5', 1, '2021-05-21 14:24:59'),
+(14, 3, 9, 19, 'Test noti nhân sự 5 đã bị trì hoãn bởi TP Nhân sự', 1, '2021-05-21 14:25:17'),
+(15, 3, 9, 18, 'Test noti nhân sự 4 đã bị trì hoãn bởi TP Nhân sự', 1, '2021-05-21 14:31:43'),
+(16, 3, 4, 18, 'Test noti nhân sự 4 đã bị trì hoãn bởi TP Nhân sự', 1, '2021-05-21 14:31:43');
 
 -- --------------------------------------------------------
 
@@ -130,7 +137,9 @@ INSERT INTO `tasks` (`id`, `creator`, `handler`, `title`, `slug`, `content`, `st
 (10, 3, 11, 'IT Task 4', 'it-task-4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam et quod dolorem ut ipsa fugiat laboriosam architecto aliquam corrupti maxime rem nisi, omnis odit dolor? Obcaecati quaerat iure asperiores? Nostrum inventore incidunt delectus ullam tenetur distinctio omnis dolor cupiditate.', 1, '2021-05-24 10:06:00', '2021-05-12 02:06:28', 0),
 (13, 9, 4, 'Test noti nhân sự 1', 'test-noti-nhan-su-1', 'Test noti nhân sự 1', 1, '2021-05-20 21:35:00', '2021-05-20 16:35:12', 0),
 (16, 9, 4, 'Test noti nhân sự 2', 'test-noti-nhan-su-2', 'Test noti nhân sự 2', 1, '2021-05-20 21:44:00', '2021-05-20 16:44:39', 0),
-(17, 9, 4, 'Test noti nhân sự 3', 'test-noti-nhan-su-3', 'Test noti nhân sự 3', 1, '2021-05-20 21:47:00', '2021-05-20 16:47:19', 0);
+(17, 9, 4, 'Test noti nhân sự 3', 'test-noti-nhan-su-3', 'Test noti nhân sự 3', 1, '2021-05-20 21:47:00', '2021-05-20 16:47:19', 0),
+(18, 9, 4, 'Test noti nhân sự 4', 'test-noti-nhan-su-4', 'Test noti nhân sự 4', 3, '2021-05-21 14:17:00', '2021-05-21 09:17:53', 0),
+(19, 9, 4, 'Test noti nhân sự 5', 'test-noti-nhan-su-5', 'Test noti nhân sự 5', 3, '2021-05-21 16:57:00', '2021-05-21 11:57:56', 0);
 
 -- --------------------------------------------------------
 
@@ -212,7 +221,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `position`
@@ -224,7 +233,7 @@ ALTER TABLE `position`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -1,5 +1,6 @@
 <?php
-class Register extends CI_Controller {
+class Register extends CI_Controller
+{
     public function __construct()
     {
         parent::__construct();
@@ -7,16 +8,22 @@ class Register extends CI_Controller {
         $this->load->library("encryption");
         $this->load->model("register_model");
         $this->load->model("department_model");
+        // Kiểm tra đăng nhập
+        if (!$this->session->has_userdata('logged_in')) {
+            redirect("login");
+        }
     }
 
-    public function index() {
+    public function index()
+    {
         $data = [
             "department_list" => $this->department_model->getListDepartment()
         ];
         $this->load->view("register", $data);
     }
 
-    public function doRegister() {
+    public function doRegister()
+    {
         // Kiểm tra thông tin nhập
         $rules = [
             [
@@ -48,12 +55,11 @@ class Register extends CI_Controller {
 
         $this->form_validation->set_rules($rules);
 
-        if(!$this->form_validation->run()) {
+        if (!$this->form_validation->run()) {
             $this->load->view("register");
-        }
-        else {
-             // Dữ liệu hợp lệ thì thêm vào hệ thống
-             // Mã hóa password
+        } else {
+            // Dữ liệu hợp lệ thì thêm vào hệ thống
+            // Mã hóa password
             $encrypted_password = $this->encryption->encrypt($this->input->post("password", TRUE));
 
             $data = [
@@ -64,18 +70,14 @@ class Register extends CI_Controller {
                 'created_at' => date("Y-m-d h:i:sa")
             ];
 
-            
-            if($this->register_model->addNewUser($data) === true) {
+
+            if ($this->register_model->addNewUser($data) === true) {
                 $this->load->view("register_successfully");
-            }
-            else if($this->register_model->addNewUser($data) === -1) {
+            } else if ($this->register_model->addNewUser($data) === -1) {
                 $this->load->view("duplicate_email");
-            }
-            else {
+            } else {
                 $this->load->view("register_fail");
             }
-
         }
-           
     }
 }

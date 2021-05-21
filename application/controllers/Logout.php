@@ -6,6 +6,10 @@ class Logout extends CI_Controller
     {
         parent::__construct();
         $this->load->library("session");
+        // Kiểm tra đăng nhập
+        if (!$this->session->has_userdata('logged_in')) {
+            show_error('Bạn đã đăng xuất rồi', 500, 'Có lỗi xảy ra');
+        }
     }
 
     public function index()

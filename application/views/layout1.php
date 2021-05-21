@@ -27,7 +27,7 @@
         <!-- Logo -->
         <li class="logo-sn waves-effect py-3">
           <div class="text-center">
-            <a href="#" class="pl-0"><img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"></a>
+            <a href="<?=base_url()?>" class="pl-0"><h1>QLCV</h1></a>
           </div>
         </li>
 

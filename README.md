@@ -15,6 +15,8 @@
     - [Module NOTIFICATION](#module-notification-1)
   - [21:47 5/20/2021](#2147-5202021)
     - [Module NOTIFICATION](#module-notification-2)
+  - [19:25 21/05/2021](#1925-21052021)
+    - [Module NOTIFICATION](#module-notification-3)
 
 # CHANGE LOG
 ## 15/05/2021 20:00
@@ -68,3 +70,10 @@
 ## 21:47 5/20/2021
 ### Module NOTIFICATION
 - Hoàn thành việc thêm Task mới là thông báo noti cho nhân viên
+
+## 19:25 21/05/2021
+### Module NOTIFICATION
+- Hoàn thiện Notification
+  - Nếu là Admin update status task thì broadcast cho Trưởng Phòng, Nhân Viên
+  - Nếu là Trưởng Phòng update status thì broadcast cho Nhân Viên
+  - Nếu là Nhân viên update thì boardcast lên Trưởng Phòng

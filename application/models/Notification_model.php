@@ -33,7 +33,7 @@ class Notification_model extends CI_Model
         if(!$data) {
             return false;
         }
-        
+
         return $this->db->insert("notification", $data);
     }
 }

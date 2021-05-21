@@ -12,6 +12,11 @@ class Users extends CI_Controller
         $this->load->model("register_model");
         $this->load->model("notification_model");
 
+        // Kiểm tra đăng nhập
+        if (!$this->session->has_userdata('logged_in')) {
+            redirect("login");
+        }
+
         if (intval($this->session->userdata("role")) !== 1) {
             redirect("dashboard");
         }
@@ -56,7 +61,7 @@ class Users extends CI_Controller
             'subview' => 'users/add',
             'department_list' => $this->department_model->getListDepartment()
         ];
-        
+
         // NOTIFICATION DATA
         $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
         $count_unread = 0;

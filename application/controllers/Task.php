@@ -16,6 +16,10 @@ class Task extends CI_Controller
         $this->load->model("task_model");
         $this->load->model("user_model");
         $this->load->model("notification_model");
+        // Kiểm tra đăng nhập
+        if (!$this->session->has_userdata('logged_in')) {
+            redirect("login");
+        }
     }
 
     public function index()
@@ -50,7 +54,6 @@ class Task extends CI_Controller
         // Nếu request có chứa query noti_id thì thực hiện mark đã đọc
         if (isset($_GET["noti_id"])) {
             // Trước khi set mark là đã đọc thì check xem noti này có thuộc về user này không?
-            // var_dump($this->notification_model->isNotificationBelongCurrentUserWithNotiId($_GET["noti_id"]));
             if ($this->notification_model->isNotificationBelongCurrentUserWithNotiId($_GET["noti_id"])) {
                 // Nếu TRUE thì set đã đọc cho noti_id này
                 $this->notification_model->markReadNotification($_GET["noti_id"]);
@@ -209,7 +212,7 @@ class Task extends CI_Controller
                         'content' => $this->input->post("task_title", TRUE),
                         'created_at' => date("Y-m-d H:i:s")
                     ];
-                    
+
                     $this->notification_model->addNotification($data_noti);
                     redirect("task");
                 }
@@ -248,6 +251,16 @@ class Task extends CI_Controller
             'stafflist' => $stafflist,
             'isAuthorized' => $this->checkAuthorizedByTaskId($taskid)
         ];
+
+        // NOTIFICATION 
+        $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
+        $count_unread = 0;
+        foreach ($data['notification_data'] as $n) {
+            if ($n["mark_read"] == 0) $count_unread++;
+        }
+        $data['count_unread_notification'] = $count_unread;
+        // NOTIFICATION 
+
         $this->load->view("layout1", $data);
     }
 
@@ -264,7 +277,8 @@ class Task extends CI_Controller
 
                 $this->db->where('id', $taskid);
                 $this->db->update('tasks', $data);
-                redirect("task/detail/$taskid");
+
+                //redirect("task/detail/$taskid");
             }
         } else {
             // Kiểm tra thông tin nhập
@@ -326,10 +340,52 @@ class Task extends CI_Controller
 
                 $this->db->where('id', $taskid);
                 $this->db->update('tasks', $data);
-                // var_dump($this->input->post("task_status", TRUE));
-                redirect("task/detail/$taskid");
             }
         }
+
+        // Gửi notification cho người đã giao Task này thông báo việc Status Task vừa update
+        if (isset($taskid)) {
+            // Lấy data task với taskid hiện tại
+            $taskdata = $this->task_model->getTaskById($taskid)[0];
+
+            // Tạo nội dung cho content notification dựa vào task_status vừa được update
+            $noti_content = "";
+            switch (intval($taskdata['status'])) {
+                case 2:
+                    $noti_content = $this->user_model->getFullNameByUserId($taskdata['handler']) . " đang thực hiện " . $taskdata['title'];
+                    break;
+                case 3:
+                    $noti_content = $taskdata['title'] . " đã bị trì hoãn bởi " . $this->user_model->getFullNameByUserId($taskdata['creator']);
+                    break;
+                case 4:
+                    $noti_content = $this->user_model->getFullNameByUserId($taskdata['handler']) . " đã hoàn thành " . $taskdata['title'];
+                    break;
+                default:
+                    $noti_content = "Unknown Notification";
+                    break;
+            }
+
+            $data_noti = [
+                'type_notification' => $taskdata['status'],
+                'belong_uid' => intval($taskdata['creator']),
+                'taskid' => $taskid,
+                'content' => $noti_content,
+                'created_at' => date("Y-m-d H:i:s")
+            ];
+
+            if($taskdata['status'] == 3) {
+                // Nếu job bị hoãn thì tạo noti cho cả 2 bên người tạo và người đc giao job
+                $this->notification_model->addNotification($data_noti);
+                $data_noti['belong_uid'] = intval($taskdata['handler']);
+                $this->notification_model->addNotification($data_noti);
+            }
+            else {
+                $this->notification_model->addNotification($data_noti);
+            }
+            
+        }
+        redirect("task/detail/$taskid");
+        // # Gửi notification
     }
 
     public function delete($taskid)

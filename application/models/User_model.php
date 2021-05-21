@@ -51,7 +51,7 @@ class User_model extends CI_Model {
     public function getFullNameByUserId($uid) {
         if(!$uid) return 0;
 
-        $query = $this->db->select("fullname")->from("users")->where("id", $uid)->get();
+        $query = $this->db->select("fullname")->from("users")->where("id", intval($uid))->get();
 
         return $query->row_array()['fullname'];
     }

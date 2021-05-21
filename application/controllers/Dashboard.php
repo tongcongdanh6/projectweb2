@@ -21,8 +21,6 @@ class Dashboard extends CI_Controller {
             if($n["mark_read"] == 0) $count_unread++;
         }
 
-        
-
         // Bảng quản trị cho ADMIN
         if(intval($this->session->userdata("role")) === 1) {
             $department_data = $this->department_model->getListDepartment();
