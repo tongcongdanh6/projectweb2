@@ -12,6 +12,11 @@ class Department_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function getListDepartmentOrderById() {
+        $query = $this->db->select("*")->from("department")->order_by("id","ASC")->get();
+        return $query->result_array();
+    }
+
     public function getIdDepartment($slug = "") {
         if(!$slug) {
             return false;

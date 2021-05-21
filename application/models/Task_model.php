@@ -118,6 +118,9 @@ class Task_model extends CI_Model {
         $query = $this->db->select("T.id, U.department")->from('tasks as T')
         ->join("users AS U","U.id = T.creator")->where('T.id', $task_id)->get();
         $res = $query->row_array();
+        var_dump($res);
+        var_dump($user);
+        die();
         if($res['department'] == $user['department']) {
             return true;
         }

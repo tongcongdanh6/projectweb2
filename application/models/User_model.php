@@ -5,9 +5,18 @@ class User_model extends CI_Model {
         $this->load->database();
     }
 
+    public fuction isAdmin() {
+        $query
+    }
+
     public function getStaffList() {
         // RETURN ARRAY
         $query = $this->db->get("users");
+        return $query->result_array();
+    }
+
+    public function getStaffListOrderByDepartment() {
+        $query = $this->db->select("*")->from("users")->order_by('department', 'ASC')->get();
         return $query->result_array();
     }
 

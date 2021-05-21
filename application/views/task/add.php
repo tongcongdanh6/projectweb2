@@ -29,14 +29,30 @@
                 <div class="col-md-12">
                     <label for="task_handler" data-error="wrong" data-success="right">Người được giao</label>
                     <div class="md-form md-outline">
-                        <select class="mdb-select md-form" name="task_handler">
+                        <select class="mdb-select md-form" name="task_handler" id="task_handler">
                             <?php
-                            foreach ($department_staff_list as $d) {
+                            if ($this->session->userdata("role") == 1) {
                             ?>
-                                <option value="<?= $d['id'] ?>"><?= $d['fullname'] ?></option>
+                                <?php
+                                foreach ($department_staff_list as $k => $v) {
+                                ?>
+                                    <optgroup label="<?=$k?>">
+                                        <?php
+                                        foreach($v as $v1) {
+                                        ?>
+                                            <option value=<?=$v1['id']?>><?=$v1['fullname']?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </optgroup>
+                                <?php
+                                }
+                            } else {
+                                ?>
                             <?php
                             }
                             ?>
+
                         </select>
                     </div>
 
@@ -64,11 +80,11 @@
 
                 <!-- Grid column -->
                 <div class="col-md-6 mb-6">
-                <label for="task_deadline" class="">Deadline</label>
+                    <label for="task_deadline" class="">Deadline</label>
                     <!-- Basic textarea -->
                     <div class="md-form md-outline">
                         <input type="datetime-local" name="task_deadline" class="form-control" value="<?= set_value('task_deadline') ?>">
-                        
+
                     </div>
 
                 </div>
@@ -76,33 +92,6 @@
 
             </div>
             <!-- Grid row -->
-
-
-            <!-- Grid row -->
-            <?php
-            if (isset($isAdmin) && $isAdmin == true) {
-            ?>
-                <div class="row text-left">
-                    <!-- Grid column -->
-                    <div class="col-md-12 mb-4">
-                        <label for="staff_department" data-error="wrong" data-success="right">Bộ phận (phòng)</label>
-                        <select class="mdb-select md-form" name="staff_department">
-                            <?php
-                            foreach ($department_list as $value) {
-                            ?>
-                                <!-- <option value="<?= $value['slug'] ?>"><?= $value['name'] ?></option> -->
-                            <?php
-                            }
-                            ?>
-                        </select>
-
-                    </div>
-                    <!-- Grid column -->
-                </div>
-                <!-- Grid row -->
-            <?php
-            }
-            ?>
 
             <div class="row">
                 <div class="col-md-12 text-center">

@@ -15,6 +15,7 @@ class Task extends CI_Controller
         $this->load->helper("text");
         $this->load->model("task_model");
         $this->load->model("user_model");
+        $this->load->model("department_model");
         $this->load->model("notification_model");
         // Kiểm tra đăng nhập
         if (!$this->session->has_userdata('logged_in')) {
@@ -77,12 +78,13 @@ class Task extends CI_Controller
 
     public function detail($taskid = NULL)
     {
-        // Lấy task detail theo ID
-        $task_data = $this->task_model->getTaskById($taskid);
         // Kiểm tra task có tồn tại hay không
-        if (!$task_data) {
+        if (!$taskid) {
             show_error(self::STRING_NOT_FOUND, 404, self::LABEL_ERROR);
         }
+
+        // Lấy task detail theo ID
+        $task_data = $this->task_model->getTaskById($taskid);
 
         // Nếu task có tồn tại
         // Thêm attr "handler_fullname" vào $task_data để hiển thị ra bên ngoài frontend
@@ -130,6 +132,16 @@ class Task extends CI_Controller
                 'department_staff_list' => $staffOfDepartmentList,
                 'isAdmin' => $this->session->userdata("role") == 1
             ];
+
+            // Modify lại staff list là full staff nếu như quyền là Admin
+            if (intval($this->session->userdata("role")) == 1) {
+                $listDepartmentOrdered = $this->department_model->getListDepartmentOrderById();
+                $res = [];
+                foreach ($listDepartmentOrdered as $listD) {
+                    $res[$listD['name']] = $this->user_model->getStaffListByDepartment($listD['id']);
+                }
+                $data['department_staff_list'] = $res;
+            }
 
             // NOTIFICATION DATA
             $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
@@ -373,19 +385,24 @@ class Task extends CI_Controller
                 'created_at' => date("Y-m-d H:i:s")
             ];
 
-            if($taskdata['status'] == 3) {
+            if ($taskdata['status'] == 3) {
                 // Nếu job bị hoãn thì tạo noti cho cả 2 bên người tạo và người đc giao job
                 $this->notification_model->addNotification($data_noti);
                 $data_noti['belong_uid'] = intval($taskdata['handler']);
                 $this->notification_model->addNotification($data_noti);
-            }
-            else {
+            } else {
                 $this->notification_model->addNotification($data_noti);
             }
-            
         }
         redirect("task/detail/$taskid");
         // # Gửi notification
+    }
+
+    private function broadcastNotification($role, $position, $data, $action)
+    {
+        if ($action == "add") {
+        } else {
+        }
     }
 
     public function delete($taskid)
