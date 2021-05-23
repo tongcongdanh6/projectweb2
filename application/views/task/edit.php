@@ -51,17 +51,31 @@ if ($isAuthorized == true) {
                                 </div>
 
                                 <label for="task_handler" class="text text-success">Người được giao</label>
-                                <select class="mdb-select md-form" name="task_handler">
+                                <select class="mdb-select md-form" name="task_handler" id="task_handler">
                                     <?php
-                                    foreach ($stafflist as $s) {
+                                    if ($this->session->userdata("role") == 1) {
                                     ?>
-                                        <option value=<?= $s["id"] ?> <?= ($task_data[0]['handler'] === $s["id"]) ? "selected" : "" ?>><?= $s["fullname"]; ?></option>
+                                        <?php
+                                        foreach ($stafflist as $k => $v) {
+                                        ?>
+                                            <optgroup label="<?= $k ?>">
+                                                <?php
+                                                foreach ($v as $v1) {
+                                                ?>
+                                                    <option value=<?= $v1['id'] ?>  <?= ($task_data[0]['handler'] === $v1["id"]) ? "selected" : "" ?>><?= $v1['fullname'] ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </optgroup>
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
                                     <?php
                                     }
                                     ?>
+
                                 </select>
-
-
                                 <div class="md-form md-outline">
                                     <textarea type="text" name="task_content" class="md-textarea form-control" rows="3"><?= $task_data[0]['content'] ?></textarea>
                                     <label for="task_content" class="">Nội dung công việc</label>

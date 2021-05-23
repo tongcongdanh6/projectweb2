@@ -72,6 +72,7 @@ class Task extends CI_Controller
             // Là admin thì luôn luôn TRUE
             return true;
         } else {
+            // Nếu user hiện tại là trưởng phòng hoặc nhân viên
             return $this->task_model->isAuthorized($this->session->userdata(), $taskid);
         }
     }
@@ -88,7 +89,9 @@ class Task extends CI_Controller
 
         // Nếu task có tồn tại
         // Thêm attr "handler_fullname" vào $task_data để hiển thị ra bên ngoài frontend
-        $task_data[0]["handler_fullname"] = $this->user_model->getFullNameByUserId(intval($task_data[0]['handler']));
+        if ($task_data) {
+            $task_data[0]["handler_fullname"] = $this->user_model->getFullNameByUserId(intval($task_data[0]['handler']));
+        }
 
         // NOTIFICATION 
         // Nếu request có chứa query noti_id thì thực hiện mark đã đọc
@@ -106,7 +109,7 @@ class Task extends CI_Controller
             'pageTitle' => 'Chi tiết công việc',
             'subview' => 'task/detail',
             'task_data' => $task_data,
-            'isAuthorized' => $this->checkAuthorizedByTaskId($taskid) // Kiểm tra quyền truy cập vào detail dựa vào quyền phòng ban
+            'isAuthorized' => $this->checkAuthorizedByTaskId($taskid) // Kiểm tra quyền truy cập vào detail dựa vào user hiện tại có phải là handler không
         ];
 
         // NOTIFICATION DATA
@@ -241,18 +244,11 @@ class Task extends CI_Controller
             show_error(self::STRING_NOT_FOUND, 404, self::LABEL_ERROR);
         }
 
-        // Nếu là admin thì thực hiện lấy danh sách stafflist theo phòng ban đó dựa vào creator, handler
-        if (intval($this->session->userdata("role")) == 1) {
-            // Lấy department của creator
-            $departmentId = $this->user_model->getDepartmentIdByUserId(intval($task_data[0]["creator"]));
-            // Lấy stafflist theo department đó
+        if (intval($this->session->userdata("position")) == 1) {
+            $departmentId = $this->session->userdata("department");
         } else {
-            if (intval($this->session->userdata("position")) == 1) {
-                $departmentId = $this->session->userdata("department");
-            } else {
-                // Nếu là nhân viên thì chỉ được cập nhật trạng thái công việc
-                $departmentId = $this->user_model->getDepartmentIdByUserId(intval($task_data[0]["handler"]));
-            }
+            // Nếu là nhân viên thì chỉ được cập nhật trạng thái công việc
+            $departmentId = $this->user_model->getDepartmentIdByUserId(intval($task_data[0]["handler"]));
         }
 
         $stafflist = $this->user_model->getStaffListByDepartment($departmentId);
@@ -263,6 +259,17 @@ class Task extends CI_Controller
             'stafflist' => $stafflist,
             'isAuthorized' => $this->checkAuthorizedByTaskId($taskid)
         ];
+
+        // Modify lại staff list là full staff nếu như quyền là Admin
+        if (intval($this->session->userdata("role")) == 1) {
+            $listDepartmentOrdered = $this->department_model->getListDepartmentOrderById();
+            $res = [];
+            foreach ($listDepartmentOrdered as $listD) {
+                $res[$listD['name']] = $this->user_model->getStaffListByDepartment($listD['id']);
+            }
+            $data['stafflist'] = $res;
+        }
+
 
         // NOTIFICATION 
         $data['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
@@ -396,13 +403,6 @@ class Task extends CI_Controller
         }
         redirect("task/detail/$taskid");
         // # Gửi notification
-    }
-
-    private function broadcastNotification($role, $position, $data, $action)
-    {
-        if ($action == "add") {
-        } else {
-        }
     }
 
     public function delete($taskid)

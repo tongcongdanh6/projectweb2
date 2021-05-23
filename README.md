@@ -17,6 +17,8 @@
     - [Module NOTIFICATION](#module-notification-2)
   - [19:25 21/05/2021](#1925-21052021)
     - [Module NOTIFICATION](#module-notification-3)
+  - [11:08 23/05/2021](#1108-23052021)
+    - [Module TASK](#module-task-2)
 
 # CHANGE LOG
 ## 15/05/2021 20:00
@@ -77,3 +79,10 @@
   - Nếu là Admin update status task thì broadcast cho Trưởng Phòng, Nhân Viên
   - Nếu là Trưởng Phòng update status thì broadcast cho Nhân Viên
   - Nếu là Nhân viên update thì boardcast lên Trưởng Phòng
+
+## 11:08 23/05/2021
+### Module TASK
+- Sub-Module: detail()
+  - Cập nhật lại permission như sau
+    - Nhân viên: chỉ được xem task của nhân viên đó được giao (trước kia là nhân viên đó được xem toàn bộ task thuộc phòng ban đó)
+    - Fix Bug xem detail()

@@ -5,8 +5,10 @@ class User_model extends CI_Model {
         $this->load->database();
     }
 
-    public fuction isAdmin() {
-        $query
+    public function isAdmin($uid) {
+        $query = $this->db->select("role")->from("users")->where("id", $uid);
+        return $query->count_all_results() > 0;
+        // RETURN BOOLEAN
     }
 
     public function getStaffList() {

@@ -106,11 +106,11 @@
                       break;
                   }
                 ?>
-                  <a class="dropdown-item <?= $style_css_noti ?> m-0" href="<?= base_url() ?>task/detail/<?= $n['taskid'] ?>/?noti_id=<?= $n['id'] ?>">
+                  <a class="dropdown-item <?= $style_css_noti ?> m-0 px-2" href="<?= base_url() ?>task/detail/<?= $n['taskid'] ?>/?noti_id=<?= $n['id'] ?>">
                   <?php
                 } else {
                   ?>
-                    <a class="dropdown-item m-0" href="<?= base_url() ?>task/detail/<?= $n['taskid'] ?>/?noti_id=<?= $n['id'] ?>">
+                    <a class="dropdown-item m-0 px-2" href="<?= base_url() ?>task/detail/<?= $n['taskid'] ?>/?noti_id=<?= $n['id'] ?>">
                     <?php
                   }
                     ?>
