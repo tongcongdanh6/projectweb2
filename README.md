@@ -21,6 +21,7 @@
     - [Module TASK](#module-task-2)
   - [19:37 24/05/2021](#1937-24052021)
     - [Module TASK](#module-task-3)
+    - [Module DEPARTMENT](#module-department)
 
 # CHANGE LOG
 ## 15/05/2021 20:00
@@ -93,3 +94,5 @@
 ### Module TASK
 - Sub-Module: edit()
   - Sửa bug hiển thị selection
+### Module DEPARTMENT
+- Hiển thị và thêm mới phòng ban

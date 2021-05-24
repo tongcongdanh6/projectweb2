@@ -3,6 +3,7 @@ class Department_model extends CI_Model {
     public function __construct()
     {
         $this->load->database();
+        $this->load->model("user_model");
     }
 
     public function getListDepartment() {
@@ -29,5 +30,15 @@ class Department_model extends CI_Model {
     public function getNameById($id) {
         $query = $this->db->get_where("department", ['id' => $id]);
         return $query->row_array()['name'];
+    }
+
+    public function getNameHeadOfDepartment($departmentId) {
+        return $this->user_model->getFullNameByUserId($this->user_model->getUserIdHeadOfDepartment($departmentId));
+    }
+
+    public function addNewDepartment($data) {
+        $this->db->insert("department", $data);
+
+        return $this->db->insert_id();
     }
 }

@@ -50,25 +50,28 @@
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <a class="collapsible-header waves-effect arrow-r">
-                        <i class="w-fa fas fa-table"></i>Phòng ban<i class="fas fa-angle-down rotate-icon"></i>
-                    </a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li>
-                                <a href="../maps/google.html" class="waves-effect">Google Maps</a>
-                            </li>
-                            <li>
-                                <a href="../maps/full.html" class="waves-effect">Full screen map</a>
-                            </li>
-                            <li>
-                                <a href="../maps/vector.html" class="waves-effect">Vector world map</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                <?php
+                if (intval($this->session->userdata('role')) === 1) {
+                ?>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r">
+                            <i class="w-fa fas fa-table"></i>Phòng ban<i class="fas fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="<?= base_url() ?>department/add" class="waves-effect"><i class="fas fa-plus"></i>Thêm phòng ban</a>
+                                </li>
+                                <li>
+                                    <a href="<?= base_url() ?>department" class="waves-effect"><i class="fas fa-list-ul"></i>Danh sách phòng ban</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
+                <?php
+                }
+                ?>
             </ul>
         </li>
         <!-- Side navigation links -->

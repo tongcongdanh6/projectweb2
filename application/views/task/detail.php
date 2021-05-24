@@ -97,7 +97,7 @@ if ($isAuthorized == true) {
                         <a class="btn btn-primary btn-rounded waves-effect waves-light" href="<?=base_url()?>task/edit/<?=$task_data[0]['id']?>">Chỉnh sửa công việc này</a>
                         <?php
                         if($this->session->userdata("role") == 1 || $this->session->userdata("position") == 1) {
-                            echo '<a data-toggle="modal" data-target="#confirmDeleteTask" class="btn btn-danger">Xóa công việc này!!!</a>';
+                        echo '<a data-toggle="modal" data-target="#confirmDeleteTask" class="btn btn-danger">Xóa công việc này!!!</a>';
                         }
                         ?>
                         

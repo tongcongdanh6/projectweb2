@@ -43,6 +43,12 @@ class User_model extends CI_Model {
         return $query->row_array()['name'];
     }
 
+    public function getPositionByUserId($uid) {
+        $query = $this->db->select("position")->from("users")->where("id", $uid)->get();
+
+        return $query->row_array()['position'];
+    }
+
     public function getUserIdByEmail($email) {
         if(!$email) return;
 
@@ -86,6 +92,16 @@ class User_model extends CI_Model {
         $query = $this->db->select("department")->from("users")->where("id", $uid)->get();
 
         return $query->row_array()["department"];
+    }
+
+    public function getUserIdHeadOfDepartment($departmentId) {
+        $query = $this->db->select("*")->from("users")->where("department", $departmentId)->where("position", 1)->get();
+        return $query->row_array()['id'];
+    }
+
+    public function updateUser($data, $uid) {
+        $this->db->where('id', $uid);
+        $this->db->update('users', $data);
     }
     
 }
