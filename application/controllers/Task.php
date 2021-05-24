@@ -296,8 +296,6 @@ class Task extends CI_Controller
 
                 $this->db->where('id', $taskid);
                 $this->db->update('tasks', $data);
-
-                //redirect("task/detail/$taskid");
             }
         } else {
             // Kiểm tra thông tin nhập

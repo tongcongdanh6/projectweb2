@@ -62,7 +62,7 @@ if ($isAuthorized == true) {
                                                 <?php
                                                 foreach ($v as $v1) {
                                                 ?>
-                                                    <option value=<?= $v1['id'] ?>  <?= ($task_data[0]['handler'] === $v1["id"]) ? "selected" : "" ?>><?= $v1['fullname'] ?></option>
+                                                    <option value=<?= $v1['id'] ?> <?= ($task_data[0]['handler'] === $v1["id"]) ? "selected" : "" ?>><?= $v1['fullname'] ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -70,11 +70,13 @@ if ($isAuthorized == true) {
                                         <?php
                                         }
                                     } else {
+                                        foreach ($stafflist as $k => $v) {
                                         ?>
+                                        <option value=<?= $v['id'] ?> <?= ($task_data[0]['handler'] === $v["id"]) ? "selected" : "" ?>><?= $v['fullname'] ?></option>
                                     <?php
+                                        }
                                     }
                                     ?>
-
                                 </select>
                                 <div class="md-form md-outline">
                                     <textarea type="text" name="task_content" class="md-textarea form-control" rows="3"><?= $task_data[0]['content'] ?></textarea>

@@ -19,6 +19,8 @@
     - [Module NOTIFICATION](#module-notification-3)
   - [11:08 23/05/2021](#1108-23052021)
     - [Module TASK](#module-task-2)
+  - [19:37 24/05/2021](#1937-24052021)
+    - [Module TASK](#module-task-3)
 
 # CHANGE LOG
 ## 15/05/2021 20:00
@@ -86,3 +88,8 @@
   - Cập nhật lại permission như sau
     - Nhân viên: chỉ được xem task của nhân viên đó được giao (trước kia là nhân viên đó được xem toàn bộ task thuộc phòng ban đó)
     - Fix Bug xem detail()
+
+## 19:37 24/05/2021
+### Module TASK
+- Sub-Module: edit()
+  - Sửa bug hiển thị selection

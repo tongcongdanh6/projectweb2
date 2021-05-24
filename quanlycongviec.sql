@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2021 at 02:32 PM
+-- Generation Time: May 24, 2021 at 03:01 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -78,7 +78,14 @@ INSERT INTO `notification` (`id`, `type_notification`, `belong_uid`, `taskid`, `
 (13, 2, 9, 19, 'NV Nhân sự 1 đang thực hiện Test noti nhân sự 5', 1, '2021-05-21 14:24:59'),
 (14, 3, 9, 19, 'Test noti nhân sự 5 đã bị trì hoãn bởi TP Nhân sự', 1, '2021-05-21 14:25:17'),
 (15, 3, 9, 18, 'Test noti nhân sự 4 đã bị trì hoãn bởi TP Nhân sự', 1, '2021-05-21 14:31:43'),
-(16, 3, 4, 18, 'Test noti nhân sự 4 đã bị trì hoãn bởi TP Nhân sự', 1, '2021-05-21 14:31:43');
+(16, 3, 4, 18, 'Test noti nhân sự 4 đã bị trì hoãn bởi TP Nhân sự', 1, '2021-05-21 14:31:43'),
+(21, 1, 12, 22, 'Tắm cho Bông', 1, '2021-05-23 06:58:44'),
+(22, 4, 3, 22, 'Nguyễn Thu Phường đã hoàn thành Tắm cho Bông', 1, '2021-05-23 07:03:51'),
+(27, 3, 3, 22, 'Tắm cho Bông đã bị trì hoãn bởi Tống Công Danh', 1, '2021-05-23 07:20:04'),
+(28, 3, 12, 22, 'Tắm cho Bông đã bị trì hoãn bởi Tống Công Danh', 1, '2021-05-23 07:20:04'),
+(29, 4, 3, 22, 'Nguyễn Thu Phường đã hoàn thành Tắm cho Bông', 1, '2021-05-23 07:20:24'),
+(30, 1, 8, 23, 'Job của Việt 1', 1, '2021-05-24 14:43:02'),
+(31, 4, 3, 23, 'NV IT 1 đã hoàn thành Job của Việt 1', 1, '2021-05-24 14:43:21');
 
 -- --------------------------------------------------------
 
@@ -139,7 +146,9 @@ INSERT INTO `tasks` (`id`, `creator`, `handler`, `title`, `slug`, `content`, `st
 (16, 9, 4, 'Test noti nhân sự 2', 'test-noti-nhan-su-2', 'Test noti nhân sự 2', 1, '2021-05-20 21:44:00', '2021-05-20 16:44:39', 0),
 (17, 9, 4, 'Test noti nhân sự 3', 'test-noti-nhan-su-3', 'Test noti nhân sự 3', 1, '2021-05-20 21:47:00', '2021-05-20 16:47:19', 0),
 (18, 9, 4, 'Test noti nhân sự 4', 'test-noti-nhan-su-4', 'Test noti nhân sự 4', 3, '2021-05-21 14:17:00', '2021-05-21 09:17:53', 0),
-(19, 9, 4, 'Test noti nhân sự 5', 'test-noti-nhan-su-5', 'Test noti nhân sự 5', 3, '2021-05-21 16:57:00', '2021-05-21 11:57:56', 0);
+(19, 9, 4, 'Test noti nhân sự 5', 'test-noti-nhan-su-5', 'Test noti nhân sự 5', 3, '2021-05-21 16:57:00', '2021-05-21 11:57:56', 0),
+(22, 3, 12, 'Tắm cho Bông', 'tam-cho-bong', 'Tắm cho Bông', 4, '2021-05-23 11:58:00', '2021-05-23 06:58:44', 0),
+(23, 3, 8, 'Job của Việt 1', 'job-cua-viet-1', 'Job của Việt 1', 4, '2021-05-24 19:43:00', '2021-05-24 14:43:02', 0);
 
 -- --------------------------------------------------------
 
@@ -171,7 +180,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `fullname`, `role`, `position`, 
 (8, 'vohoangviet@gmail.com', 'fa62191acca51cce79c16d235f74e569e1643025284a39ca377ad34a54911fe15aeb989463a3573f0abfc492a19616b8bbcc5a5689e5c7fd8f302a6aa0955ae4/G3WKH821j7aH2vEbtMbdOMc1pnCYdYH5WUjKZYuATk=', 'NV IT 1', 2, 3, 2, '2021-05-05 03:45:16'),
 (9, 'phamhongphuc@gmail.com', '545a6cdaf7480098fa1c7d637a4508aa2d36fd13bebf0d704b6780e2bd03c4c49458e73f0469defd4ace83d745ff8207444bb8e41b53eb5a151a6956e88aaa771U/TYjPuN7QxQK1Qz4wWibSkQ6mp60w1xqM1gn8K6wo=', 'TP Nhân sự', 2, 1, 3, '2021-05-05 04:13:47'),
 (10, 'tranducquang@gmail.com', '0bea49ed27bb13297748addf574a1cf3d17b955dbac849f35536e519fbf4bb2ba4c988bc50ec1d8e1e8e860cbbf3309bf1956d4c1119aed216f1d2a28b6e1812sSf4HM7TtUh2KeP9aICxqfZgTcNz45K0taJIySlSakE=', 'NV Nhân sự 2', 2, 3, 3, '2021-05-12 10:55:59'),
-(11, 'lekimson@gmail.com', '898fe610f6ce2236e5b107ec31e024ec6cf23a12a2cdfcde9429644caebe749b5cf53cc021b809f18c26e5c006402dffb72b33ba7a5002bb912c741d04cec7d10mhwsvU9gW14eULSLNY9UVuN5VjFdFeQUA9FGXuD2+w=', 'NV IT 2', 2, 3, 2, '2021-05-12 10:56:33');
+(11, 'lekimson@gmail.com', '898fe610f6ce2236e5b107ec31e024ec6cf23a12a2cdfcde9429644caebe749b5cf53cc021b809f18c26e5c006402dffb72b33ba7a5002bb912c741d04cec7d10mhwsvU9gW14eULSLNY9UVuN5VjFdFeQUA9FGXuD2+w=', 'NV IT 2', 2, 3, 2, '2021-05-12 10:56:33'),
+(12, 'thuphuong@gmail.com', 'cb3d304e680c52d8fc8af86abfd1cf046f62e149c8b44aa2d0f7dfbfb4e5b2660fbec2b2763f8da0c086f3d76ce5b3d87bb2909a08e2dc7a9d2838065e197deaJBXa5z40f0NazUL4bxQZZ1ql8vlfNunl7s1QG2Y7Q78=', 'Nguyễn Thu Phường', 2, 3, 4, '2021-05-21 03:04:39');
 
 --
 -- Indexes for dumped tables
@@ -221,7 +231,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `position`
@@ -233,13 +243,13 @@ ALTER TABLE `position`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

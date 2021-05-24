@@ -151,21 +151,22 @@ class Task_model extends CI_Model
         }
         // 2) Nếu task do Trưởng phòng tạo
         else {
-            // 2.1 Nếu user hiện tại là TRƯỞNG PHÒNG, kiểm tra xem phòng ban task handler này có thuộc phòng ban mình không
+            // 2.1 Nếu user hiện tại là TRƯỞNG PHÒNG, kiểm tra xem phòng ban creator phải là của chính mình hay không
             if ($this->session->userdata("position") == 1) {
-                $query = $this->db->select("handler")->from("tasks")->where("id", $task_id)->get();
-                $handler_department = $this->user_model->getDepartmentIdByUserId($query->row_array()['handler']);
-                if ($user['department'] == $handler_department) {
+                if($query->row_array()['creator'] == $user['id']) {
                     return true;
-                } else {
+                }
+                else {
                     return false;
                 }
             }
+            // 2.2 Nếu user hiện tại là NHÂN VIÊN, thì kiểm tra phòng ban người tạo có cùng phòng ban mình hay không?
             else {
-                $query = $this->db->select("handler")->from("tasks")->where("id", $task_id)->get();
-                if ($query->row_array()['handler'] == $user['id']) {
+                $creator_department = $this->user_model->getDepartmentIdByUserId($query->row_array()['creator']);
+                if($creator_department == $user['department']) {
                     return true;
-                } else {
+                }
+                else {
                     return false;
                 }
             }
