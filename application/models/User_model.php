@@ -99,9 +99,28 @@ class User_model extends CI_Model {
         return $query->row_array()['id'];
     }
 
-    public function updateUser($data, $uid) {
-        $this->db->where('id', $uid);
-        $this->db->update('users', $data);
+    public function deleteUserById($id)
+    {
+        $list_user = $this->getStaffList();
+        foreach($list_user as $s)
+        {
+            if($s['id'] == $id)
+            {
+                $this->db->where("id",$id);
+                $this->db->delete("users");
+            }
+        }
     }
-    
+    public function getUserById($id)
+    {
+        $query = $this->db->get_where('users', array('id' => $id));
+        return $query->row_array();
+
+    }
+
+    public function updateUser($data)
+    {
+        $this->db->where('id',$data['id']);
+        $this->db->update('users',$data);
+    }
 }

@@ -30,6 +30,12 @@
                                             <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Start date
                     : activate to sort column ascending" style="width: 58.8px;">Email
                                             </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Start date
+                    : activate to sort column ascending" style="width: 58.8px;">
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="dtMaterialDesignExample" rowspan="1" colspan="1" aria-label="Start date
+                    : activate to sort column ascending" style="width: 58.8px;">
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,6 +48,8 @@
                                                 <td><?=$s['department_name']?></td>
                                                 <td><?=$s['position_name']?></td>
                                                 <td><?=$s['email']?></td>
+                                                <td><a class="btn btn-primary" href="<?=base_url()?>users/update/<?=$s['id']?>">Update</a></td>
+                                                <td><a class="btn btn-danger" href="<?=base_url()?>users/delete_user/<?=$s['id']?>">Delete</a></td>
                                             </tr>
                                         <?php
                                         }

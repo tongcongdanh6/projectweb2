@@ -70,9 +70,8 @@ class Register extends CI_Controller
                 'created_at' => date("Y-m-d h:i:sa")
             ];
 
-
             if ($this->register_model->addNewUser($data) === true) {
-                $this->load->view("register_successfully");
+                redirect("login");
             } else if ($this->register_model->addNewUser($data) === -1) {
                 $this->load->view("duplicate_email");
             } else {

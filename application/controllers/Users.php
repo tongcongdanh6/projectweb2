@@ -138,4 +138,55 @@ class Users extends CI_Controller
             }
         }
     }
+
+    public function delete_user($id)
+    {
+        $this->user_model->deleteUserById($id);
+        redirect("Users/index");
+    }
+    // Update user
+    public function update($id)
+    {
+        $data3 = $this->user_model->getUserById($id);
+        $data_needupdate = [
+            'id' => $id,
+            'fullname' => $data3['fullname'],
+            'email' => $data3['email'],
+            'password' => $this->encryption->decrypt($data3['password'])
+        ];
+
+        $data1 = [
+            'pageTitle' => 'Update user',
+            'subview' => 'users/update',
+            'department_list' => $this->department_model->getListDepartment(),
+            'data_needupdate' => $data_needupdate
+        ];
+
+        // NOTIFICATION DATA
+        $data1['notification_data'] = $this->notification_model->getNotificationListByUserId($this->session->userdata("id"));
+        $count_unread = 0;
+        foreach ($data1['notification_data'] as $n) {
+            if ($n["mark_read"] == 0) $count_unread++;
+        }
+        $data1['count_unread_notification'] = $count_unread;
+        // #NOTIFICATION DATA
+
+        $this->load->view("layout1", $data1);
+    }
+    public function do_update($id)
+    {
+
+        $encrypted_password = $this->encryption->encrypt($this->input->post("staff_password", TRUE));
+
+        $data = [
+            'id' => $id,
+            'email' => $this->input->post("staff_email", TRUE),
+            'password' => $encrypted_password,
+            'fullname' => $this->input->post("staff_fullname", TRUE),
+            'department' => $this->department_model->getIdDepartment($this->input->post("staff_department")),
+            'created_at' => date("Y-m-d h:i:sa")
+        ];
+        $this->user_model->updateUser($data);
+        redirect("users/index");
+    }
 }
