@@ -13,6 +13,11 @@
   <!-- Material Design Bootstrap -->
   <link rel="stylesheet" href="<?= base_url() ?>public/css/mdb.min.css">
   <!-- Your custom styles (optional) -->
+  <style>
+    .navbar .notifications-nav .dropdown-menu {
+      width: 20rem;
+    }
+  </style>
 </head>
 
 <body class="fixed-sn white-skin">
@@ -27,7 +32,9 @@
         <!-- Logo -->
         <li class="logo-sn waves-effect py-3">
           <div class="text-center">
-            <a href="<?=base_url()?>" class="pl-0"><h1>QLCV</h1></a>
+            <a href="<?= base_url() ?>" class="pl-0">
+              <h1>QLCV</h1>
+            </a>
           </div>
         </li>
 
@@ -116,10 +123,10 @@
                     ?>
 
                     <?php if ($n['mark_read'] == 0) { ?><b><?php } ?>
+                      <p style="white-space: normal; margin-bottom: 0px">
                       <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
-                      <span>
-                        <?= $n["content"] ?>
-                      </span>
+                      <b><?= $n["content"] ?></b>
+                      </p>
                       <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i>
                         <?php
                         echo date("Y-m-d H:i:s", strtotime($n["created_at"]));

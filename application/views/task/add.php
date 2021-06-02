@@ -48,9 +48,11 @@
                                 <?php
                                 }
                             } else {
+                                foreach($department_staff_list as $k) {
                                 ?>
+                                    <option value=<?=$k['id']?>><?=$k['fullname']?></option>
                             <?php
-                            }
+                            }}
                             ?>
 
                         </select>
