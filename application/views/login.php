@@ -156,7 +156,7 @@
                   <div class="text-center">
                     <button class="btn purple-gradient btn-lg">Đăng nhập</button>
                     <hr>
-                    <button class="btn purple-gradient btn-sm"><a href="<?= base_url() ?>register">Đăng ký</a></button>
+                    <a class="btn purple-gradient btn-sm" href="<?= base_url() ?>register">Đăng ký</a>
                     <div class="inline-ul text-center d-flex justify-content-center">
                       <a class="p-2 m-2 fa-lg tw-ic"><i class="fab fa-twitter white-text"></i></a>
                       <a class="p-2 m-2 fa-lg li-ic"><i class="fab fa-linkedin-in white-text"> </i></a>

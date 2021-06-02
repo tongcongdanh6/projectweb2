@@ -5,12 +5,14 @@ class Register extends CI_Controller
     {
         parent::__construct();
         $this->load->library("form_validation");
+        $this->load->library("session");
         $this->load->library("encryption");
         $this->load->model("register_model");
         $this->load->model("department_model");
+        
         // Kiểm tra đăng nhập
-        if (!$this->session->has_userdata('logged_in')) {
-            redirect("login");
+        if ($this->session->has_userdata('logged_in')) {
+            redirect("dashboard");
         }
     }
 
